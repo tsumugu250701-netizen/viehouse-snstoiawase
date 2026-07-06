@@ -61,7 +61,46 @@ function HeroPanel({type,title,text,img,theme}){return <article className={`hero
 function SectionTitle({eyebrow,title,text}){return <div className="sectionTitle"><p>{eyebrow}</p><h2>{title}</h2>{text&&<span>{text}</span>}</div>}
 function Gift(){return <section className="giftBlock"><div><p className="eyebrow">WEB予約限定</p><h2>5,000<span>円相当</span></h2><h3>選べる来場特典プレゼント！</h3><p>松阪牛・towerカタログギフト・スターバックスチケットからお選びいただけます。</p></div><div className="giftCards"><article><img src={images.giftBeef}/><b>松阪牛</b></article><article><img src={images.giftTower}/><b>tower<br/>カタログギフト</b></article><article><img src={images.giftStarbucks}/><b>スターバックス<br/>チケット</b></article></div></section>}
 export default function Page(){return <><Header/><main>
-  <section className="hero"><div className="heroGrid"><HeroPanel theme="gold" type="PROVENCE" title="プロヴァンス" text="南仏のやさしい時間が流れる、自然素材の心地よい暮らし。" img={images.provenceHero}/><HeroPanel theme="blue" type="SMART" title="スマート" text="電気を自給自足する、未来の暮らしを体感できる住まい。" img={images.smartHero}/><div className="centerBadge"><strong>2棟同時<br/>見学OK</strong><small>どっち派？</small></div></div><div className="heroCopy"><p>見るだけで、家づくりが楽しくなる。</p><h1>2つの暮らしを<br/>見て、比べて、体感してください。</h1><span>プロヴァンスとスマートハウスの2棟モデルハウス見学受付中</span><a href="#reserve" className="mainCta">WEB予約限定・選べる5,000円相当の来場特典をご用意</a></div></section>
+  <section className="hero">
+  <div className="heroCopy">
+    <p>見るだけで、家づくりが楽しくなる。</p>
+    <h1>
+      2つの暮らしを<br />
+      見て、比べて、体感してください。
+    </h1>
+    <span>
+      プロヴァンスとスマートハウスの2棟モデルハウス見学受付中
+    </span>
+    <a href="#reserve" className="mainCta">
+      WEB予約限定・選べる5,000円相当の来場特典をご用意
+    </a>
+  </div>
+
+  <div className="heroGrid">
+    <HeroPanel
+      theme="gold"
+      type="PROVENCE"
+      title="プロヴァンス"
+      text="南仏のやさしい時間が流れる、自然素材の心地よい暮らし。"
+      img={images.provenceHero}
+    />
+
+    <HeroPanel
+      theme="blue"
+      type="SMART"
+      title="スマート"
+      text="電気を自給自足する、未来の暮らしを体感できる住まい。"
+      img={images.smartHero}
+    />
+
+    <div className="centerBadge">
+      <strong>
+        2棟同時<br />見学OK
+      </strong>
+      <small>どっち派？</small>
+    </div>
+  </div>
+</section>
 
   <section className="container benefits"><h2>モデルハウス見学でできること</h2><div>{benefits.map(([Icon,t])=><article key={t}><Icon size={35}/><p>{t}</p></article>)}</div></section>
 
