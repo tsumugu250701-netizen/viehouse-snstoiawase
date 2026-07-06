@@ -49,3 +49,64 @@
 .voiceCard p{font-weight:800;color:var(--muted);margin:0;}
 @media(max-width:900px){.youtubeGrid{grid-template-columns:1fr;}.youtubeImage{height:220px;}}
 @media(max-width:580px){.youtubeImage{height:180px;}.voiceCard{padding:20px;}.voiceCard h3{font-size:19px;}}
+/* Hero overlap fix */
+.hero {
+  position: relative;
+  padding: 54px 0 70px;
+  min-height: auto;
+  overflow: visible;
+}
+
+.heroCopy {
+  position: relative !important;
+  z-index: 5;
+  width: min(780px, calc(100% - 32px));
+  margin: 0 auto 34px !important;
+  padding: 0 !important;
+  text-align: center;
+  transform: none !important;
+  left: auto !important;
+  top: auto !important;
+}
+
+.heroCopy h1 {
+  margin: 8px 0 12px;
+  line-height: 1.45;
+}
+
+.heroCopy p,
+.heroCopy span {
+  display: block;
+}
+
+.heroGrid {
+  position: relative;
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.centerBadge {
+  z-index: 6;
+}
+
+@media (max-width: 860px) {
+  .hero {
+    padding: 34px 0 46px;
+  }
+
+  .heroGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .centerBadge {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    transform: none !important;
+    margin: -8px auto;
+    order: 2;
+  }
+}
