@@ -132,3 +132,17 @@
     background:#d8b06a;
     transform:translateX(-50%);
 }
+.centerBadge{
+    width:150px;
+    height:150px;
+
+    display:flex;
+    flex-direction:column;
+
+    justify-content:center;
+    align-items:center;
+
+    gap:8px;
+
+    padding:0;
+}
