@@ -117,3 +117,18 @@
     color:#8d6a2b;
     letter-spacing:.03em;
 }
+.centerBadge small{
+    position:relative;
+    padding-top:10px;
+}
+
+.centerBadge small::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:50%;
+    width:42px;
+    height:1px;
+    background:#d8b06a;
+    transform:translateX(-50%);
+}
