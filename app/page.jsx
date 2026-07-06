@@ -11,7 +11,7 @@ const images = {
   giftBeef: '/images/provence-hero.png',
   giftTower: '/images/smart-hero.png',
   giftStarbucks: '/images/smart-hero.png',
-  president: '/images/smart-hero.png',
+  president: '/images/president.jpg',
 };
 
 const benefits = [
