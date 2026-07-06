@@ -112,7 +112,23 @@ export default function Page(){return <><Header/><main>
 
   <section className="container voiceSection" id="voice"><SectionTitle eyebrow="OWNER'S VOICE" title="お客様の声" text="実際にViehouseで建てられたお客様の声をご紹介します。"/><div className="voiceGrid">{voiceItems.map(item=><VoiceCard key={item[0]} item={item}/>)}</div></section>
 
-  <section className="container message"><img src={images.president}/><div><p className="eyebrow">MESSAGE</p><h2>代表からのメッセージ</h2><p>家は、家族の未来をつくる場所。だからこそ、デザインも性能もどちらも大切にしたい。見た目の美しさだけでなく、高性能で安心して暮らせる住まいをご提案します。</p><b>代表取締役　福島 大輔</b></div></section>
+  <section className="container message"><img src={images.president}/><div><p className="eyebrow">MESSAGE</p><h2>代表からのメッセージ</h2><p>20年前まで、私も日本の家は世界最高水準だと思っていました。
+
+しかし海外を訪れたとき、100年以上大切に住み継がれる家と、その家を誇りに思う人々の暮らしに出会いました。
+
+一方、日本では家の寿命は約30年と言われています。
+
+「流行でつくり、古くなれば建て替える。」
+
+そんな家づくりではなく、何十年経っても愛され、家族とともに歳を重ねていく住まいをつくりたい。
+
+その想いからViehouseは生まれました。
+
+私たちは漆喰や無垢材など、本物の素材を大切にし、デザインだけでなく性能や健康にもこだわりながら、一棟一棟丁寧に家づくりをしています。
+
+家は建てた日が完成ではありません。
+
+10年後、20年後、30年後も「この家でよかった」と思っていただける住まいを、これからも皆さまと一緒につくっていきます。</p><b>代表取締役　福島 徹</b></div></section>
 
   <section className="container faq" id="faq"><SectionTitle eyebrow="FAQ" title="よくあるご質問"/>{faqs.map(q=><details key={q}><summary>{q}</summary><p>はい、可能です。まだ具体的でない段階でもお気軽にご相談ください。</p></details>)}</section>
 
