@@ -97,7 +97,7 @@ export default function Page(){return <><Header/><main>
       <strong>
         2棟同時<br />見学OK
       </strong>
-      <small>どっち派？</small>
+      <small>比較できます</small>
     </div>
   </div>
 </section>
