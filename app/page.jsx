@@ -87,8 +87,8 @@ export default function Page(){return <><Header/><main>
 
     <HeroPanel
       theme="blue"
-      type="SMART"
-      title="スマート"
+      type="SMARTHOUSE"
+      title="スマートハウス"
       text="電気を自給自足する、未来の暮らしを体感できる住まい。"
       img={images.smartHero}
     />
