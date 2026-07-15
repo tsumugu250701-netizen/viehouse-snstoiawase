@@ -64,10 +64,10 @@ export default function Page(){return <><Header/><main>
   <section className="hero">
   <div className="heroCopy">
     <p>見るだけで、家づくりが楽しくなる。</p>
-    <h1>
-      2つの暮らしを<br />
-      見て、比べて、体感してください。
-    </h1>
+<h1 className="heroTitle">
+  <span>2つの暮らしを見て、</span>
+  <span>比べて、体感してください。</span>
+</h1>
     <span>
       プロヴァンスとスマートハウスの2棟モデルハウス見学受付中
     </span>
