@@ -130,7 +130,49 @@ export default function Page(){return <><Header/><main>
 
 10年後、20年後、30年後も「この家でよかった」と思っていただける住まいを、これからも皆さまと一緒につくっていきます。</p><b>代表取締役　福島 徹</b></div></section>
 
-  <section className="container faq" id="faq"><SectionTitle eyebrow="FAQ" title="よくあるご質問"/>{faqs.map(q=><details key={q}><summary>{q}</summary><p>はい、可能です。まだ具体的でない段階でもお気軽にご相談ください。</p></details>)}</section>
+<section className="container faq" id="faq">
+  <SectionTitle eyebrow="FAQ" title="よくあるご質問" />
+
+  <details>
+    <summary>まだ建てるか決めていなくても見学できますか？</summary>
+    <p>
+      はい、もちろん可能です。情報収集の段階でもお気軽にご来場ください。
+      実際の建物を見ながら、家づくりの進め方をご案内します。
+    </p>
+  </details>
+
+  <details>
+    <summary>子ども連れでも見学できますか？</summary>
+    <p>
+      はい、お子様連れでもご見学いただけます。
+      ご家族皆さまで、実際の暮らしをイメージしながらご覧ください。
+    </p>
+  </details>
+
+  <details>
+    <summary>土地を探している段階でも相談できますか？</summary>
+    <p>
+      はい、土地探しからご相談いただけます。
+      ご希望のエリアやご予算を伺い、建物とのバランスも含めてご提案します。
+    </p>
+  </details>
+
+  <details>
+    <summary>見学にはどのくらい時間がかかりますか？</summary>
+    <p>
+      目安は60分から90分程度です。
+      ご都合に合わせて、短時間でのご見学にも対応いたします。
+    </p>
+  </details>
+
+  <details>
+    <summary>予算や住宅ローンの相談だけでも大丈夫ですか？</summary>
+    <p>
+      はい、大丈夫です。
+      建築費の目安や月々の返済額、土地を含めた総予算についても分かりやすくご説明します。
+    </p>
+  </details>
+</section>
 
   <section className="container reserve" id="reserve"><Gift/><div className="formBox"><p className="eyebrow">RESERVE</p><h2>ご希望の日時でかんたんWEB予約</h2><p className="formNote">※Googleフォーム連携の場合は、下記フォーム部分を埋め込みURLに差し替えてください。</p><form><label>お名前<input placeholder="例）山田 太郎"/></label><label>ご希望日<select><option>希望日を選択</option></select></label><label>お電話番号<input placeholder="例）090-1234-5678"/></label><label>ご希望のモデルハウス<select><option>どちらでも可</option><option>プロヴァンス</option><option>スマートハウス</option><option>2棟まとめて見学</option></select></label><label className="full">ご質問・ご相談など<textarea placeholder="ご要望があればご記入ください"/></label><button type="button">確認画面へ進む <ChevronRight size={18}/></button></form></div></section>
 
