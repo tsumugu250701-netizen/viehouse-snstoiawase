@@ -161,3 +161,8 @@
     grid-template-columns:1.15fr .85fr;
     gap:22px;
 }
+.modelCompareBody{
+    display:grid;
+    grid-template-columns:1.25fr .75fr;
+    gap:20px;
+}
