@@ -173,3 +173,67 @@
 .modelCompareCard li{
     white-space:nowrap;
 }
+/* ===== HERO 見出し 最終調整 ===== */
+
+.hero .lead {
+  font-size: 18px !important;
+  line-height: 1.6;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  margin: 0 0 22px;
+}
+
+.hero h1,
+.heroTitle {
+  max-width: 1180px;
+  margin: 0 auto 24px;
+  font-size: 64px !important;
+  line-height: 1.35 !important;
+  letter-spacing: 0.02em !important;
+  font-weight: 500 !important;
+  text-align: center;
+}
+
+.heroTitle span {
+  display: block;
+  white-space: nowrap;
+}
+
+.hero .sub {
+  font-size: 18px !important;
+  line-height: 1.9;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* ノートPC */
+@media (max-width: 1400px) {
+  .hero h1,
+  .heroTitle {
+    font-size: 52px !important;
+    max-width: 980px;
+  }
+
+  .hero .lead,
+  .hero .sub {
+    font-size: 17px !important;
+  }
+}
+
+/* タブレット以下 */
+@media (max-width: 900px) {
+  .hero h1,
+  .heroTitle {
+    font-size: 38px !important;
+    line-height: 1.5 !important;
+  }
+
+  .heroTitle span {
+    white-space: normal;
+  }
+
+  .hero .lead,
+  .hero .sub {
+    font-size: 15px !important;
+  }
+}
