@@ -166,3 +166,10 @@
     grid-template-columns:1.25fr .75fr;
     gap:20px;
 }
+.modelCompareCard ul{
+    width:100%;
+}
+
+.modelCompareCard li{
+    white-space:nowrap;
+}
