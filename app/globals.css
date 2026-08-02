@@ -2043,3 +2043,12 @@ tbody th {
   }
 
 }
+.spOnly {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .spOnly {
+    display: inline;
+  }
+}
