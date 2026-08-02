@@ -1926,3 +1926,65 @@ tbody th {
     gap: 6px;
   }
 }
+/* Heroの中央位置を厳密に統一 */
+.heroCopy {
+  display: grid;
+  width: 100%;
+  max-width: 1120px;
+  justify-items: center;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 24px;
+  padding-left: 24px;
+}
+
+.heroTitle {
+  width: 100%;
+  max-width: 940px;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+}
+
+.heroTitle span {
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  text-align: center;
+}
+
+/* 句読点による見た目上の左ズレを補正 */
+@media (min-width: 901px) {
+  .heroTitle span {
+    transform: translateX(12px);
+  }
+}
+
+.heroCopy > p,
+.heroCopy > span,
+.mainCta {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.heroGrid {
+  margin-right: auto;
+  margin-left: auto;
+}
+@media (max-width: 580px) {
+  .heroCopy {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .heroTitle {
+    max-width: 350px;
+    font-size: 31px;
+    line-height: 1.5;
+  }
+
+  .heroTitle span {
+    white-space: normal;
+    transform: none;
+  }
+}
