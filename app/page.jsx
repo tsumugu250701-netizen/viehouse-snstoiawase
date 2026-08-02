@@ -8,9 +8,9 @@ const images = {
   provenceMain: '/images/provence-main.png',
   smartMain: '/images/smart-main.png',
   // 差し替え用：public/images/ に同名で画像を置くと反映されます
-  giftBeef: '/images/provence-hero.png',
-  giftTower: '/images/smart-hero.png',
-  giftStarbucks: '/images/smart-hero.png',
+  giftBeef: '/images/gift-beef.png',
+  giftTower: '/images/gift-tower.png',
+  giftStarbucks: '/images/gift-starbucks.png',
   president: '/images/president.jpg',
 };
 
