@@ -1123,3 +1123,165 @@ height:220px;
 .reserve .vhFormCard {
   width: 100%;
 }
+.companyHeader {
+  background: #f8f0e4;
+  border-bottom: 1px solid #e8dac5;
+}
+
+.companyNav {
+  display: flex;
+  min-height: 76px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.companyBack {
+  color: #8d5b20;
+  text-decoration: none;
+}
+
+.companyHero {
+  padding: 110px 0;
+  text-align: center;
+  background:
+    linear-gradient(rgb(40 25 15 / 35%), rgb(40 25 15 / 35%)),
+    url('/images/provence-hero.png') center / cover;
+}
+
+.companyHero h1,
+.companyHero p {
+  color: #fff;
+}
+
+.companyHero h1 {
+  margin: 10px 0 14px;
+  font-size: clamp(40px, 7vw, 72px);
+}
+
+.companyMessage {
+  display: grid;
+  grid-template-columns: 1fr 430px;
+  gap: 70px;
+  align-items: center;
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+.companyMessage h2 {
+  font-size: clamp(32px, 5vw, 52px);
+  line-height: 1.5;
+}
+
+.companyMessage p {
+  line-height: 2;
+}
+
+.companyMessage img {
+  width: 100%;
+  height: 560px;
+  object-fit: cover;
+  border-radius: 22px;
+}
+
+.companyValues {
+  padding: 100px 0;
+  background: #f8f2e9;
+}
+
+.companyValueGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 50px;
+}
+
+.companyValueGrid article {
+  padding: 34px 28px;
+  background: #fff;
+  border: 1px solid #e8dac5;
+  border-radius: 16px;
+}
+
+.companyValueGrid svg {
+  color: #b77b29;
+}
+
+.companyValueGrid p {
+  line-height: 1.8;
+}
+
+.companyProfile {
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+.companyProfile dl {
+  max-width: 900px;
+  margin: 50px auto 0;
+  border-top: 1px solid #dfd1bd;
+}
+
+.companyProfile dl div {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  padding: 22px 10px;
+  border-bottom: 1px solid #dfd1bd;
+}
+
+.companyProfile dt {
+  font-weight: 700;
+}
+
+.companyProfile dd {
+  margin: 0;
+}
+
+.companyCta {
+  padding: 90px 0;
+  text-align: center;
+  background: #342419;
+}
+
+.companyCta h2,
+.companyCta p {
+  color: #fff;
+}
+
+.companyCta p {
+  line-height: 1.9;
+}
+
+.companyCta a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding: 17px 34px;
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  background: #b77b29;
+  border-radius: 999px;
+}
+
+@media (max-width: 768px) {
+  .companyMessage {
+    grid-template-columns: 1fr;
+    gap: 35px;
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+
+  .companyMessage img {
+    height: 420px;
+  }
+
+  .companyValueGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .companyProfile dl div {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+}
