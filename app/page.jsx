@@ -1,6 +1,17 @@
 'use client';
 
-import { Home, Route, Sun, MessageCircle, MapPin, ChevronRight, Star } from 'lucide-react';
+import { useState } from 'react';
+import {
+  Home,
+  Route,
+  Sun,
+  MessageCircle,
+  MapPin,
+  ChevronRight,
+  ChevronLeft,
+  Star,
+  Check,
+} from 'lucide-react';
 
 const images = {
   provenceHero: '/images/provence-hero.png',
@@ -139,6 +150,648 @@ function Header(){return <header className="header"><div className="container na
 function HeroPanel({type,title,text,img,theme}){return <article className={`heroPanel ${theme}`}><img src={img} alt={title}/><div className="heroShade"/><div className="heroPanelText"><p>{type}</p><h2>{title}</h2><span>{text}</span><a href="#reserve">モデルハウスを予約する <ChevronRight size={16}/></a></div></article>}
 function SectionTitle({eyebrow,title,text}){return <div className="sectionTitle"><p>{eyebrow}</p><h2>{title}</h2>{text&&<span>{text}</span>}</div>}
 function Gift(){return <section className="giftBlock"><div><p className="eyebrow">WEB予約限定</p><h2>5,000<span>円相当</span></h2><h3>選べる来場特典プレゼント！</h3><p>松阪牛・towerカタログギフト・スターバックスチケットからお選びいただけます。</p></div><div className="giftCards"><article><img src={images.giftBeef}/><b>松阪牛</b></article><article><img src={images.giftTower}/><b>tower<br/>カタログギフト</b></article><article><img src={images.giftStarbucks}/><b>スターバックス<br/>チケット</b></article></div></section>}
+function ReserveForm() {
+  const [step, setStep] = useState(1);
+  const [submitted, setSubmitted] = useState(false);
+
+  const [formData, setFormData] = useState({
+    name: '',
+    furigana: '',
+    email: '',
+    phone: '',
+    address: '',
+    requestType: '',
+    timing: '',
+    statuses: [],
+    area: '',
+    landStatus: '',
+    budget: '',
+    gift: '',
+    message: '',
+    privacy: false,
+  });
+
+  const updateField = (field, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
+  const toggleStatus = (value) => {
+    setFormData((prev) => ({
+      ...prev,
+      statuses: prev.statuses.includes(value)
+        ? prev.statuses.filter((item) => item !== value)
+        : [...prev.statuses, value],
+    }));
+  };
+
+  const validateStep = () => {
+    if (step === 1) {
+      if (
+        !formData.name ||
+        !formData.furigana ||
+        !formData.email ||
+        !formData.phone ||
+        !formData.address
+      ) {
+        alert('必須項目を入力してください。');
+        return false;
+      }
+    }
+
+    if (step === 2) {
+      if (!formData.requestType || !formData.timing) {
+        alert('必須項目を選択してください。');
+        return false;
+      }
+    }
+
+    if (step === 3) {
+      if (!formData.landStatus) {
+        alert('土地の状況を選択してください。');
+        return false;
+      }
+    }
+
+    return true;
+  };
+
+  const nextStep = () => {
+    if (!validateStep()) return;
+
+    setStep((prev) => Math.min(prev + 1, 4));
+
+    document
+      .getElementById('reserve')
+      ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  const prevStep = () => {
+    setStep((prev) => Math.max(prev - 1, 1));
+
+    document
+      .getElementById('reserve')
+      ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  const handleSubmit = (event) => {
+    if (!formData.privacy) {
+      event.preventDefault();
+      alert('個人情報の取り扱いに同意してください。');
+      return;
+    }
+
+    setTimeout(() => {
+      setSubmitted(true);
+
+      document
+        .getElementById('reserve')
+        ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 800);
+  };
+
+  if (submitted) {
+    return (
+      <div className="formBox formComplete">
+        <div className="completeIcon">
+          <Check size={38} />
+        </div>
+
+        <p className="eyebrow">THANK YOU</p>
+
+        <h2>お問い合わせありがとうございます</h2>
+
+        <p>
+          ご入力いただいた内容を確認後、Viehouse担当者より
+          お電話またはメールにてご連絡いたします。
+        </p>
+
+        <p className="completeNote">
+          モデルハウス見学をご希望の場合は、担当者との日程調整後に
+          ご予約確定となります。
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="formBox">
+      <p className="eyebrow">CONTACT</p>
+
+      <h2>モデルハウス見学・資料請求</h2>
+
+      <p className="formLead">
+        簡単な4ステップでお申し込みいただけます。
+        内容を確認後、担当者よりご連絡いたします。
+      </p>
+
+      <div className="stepProgress">
+        {[1, 2, 3, 4].map((number) => (
+          <div
+            key={number}
+            className={`stepItem ${
+              step === number ? 'active' : ''
+            } ${step > number ? 'completed' : ''}`}
+          >
+            <span>{step > number ? <Check size={16} /> : number}</span>
+
+            <small>
+              {number === 1 && 'お客様情報'}
+              {number === 2 && 'ご希望内容'}
+              {number === 3 && '家づくり'}
+              {number === 4 && '確認・送信'}
+            </small>
+          </div>
+        ))}
+      </div>
+
+      <iframe
+        name="google-form-submit"
+        title="Googleフォーム送信用"
+        className="hiddenFormFrame"
+      />
+
+      <form
+        className="stepForm"
+        action="https://docs.google.com/forms/d/e/1FAIpQLSe24qMYgvsVbR4KcUKKwAGV7vjB8FiZIwJTZ0SYJfrSHur1JQ/formResponse"
+        method="POST"
+        target="google-form-submit"
+        onSubmit={handleSubmit}
+      >
+        {/* Googleフォームへ送る非表示項目 */}
+        <input
+          type="hidden"
+          name="entry.1185507046"
+          value={formData.name}
+        />
+        <input
+          type="hidden"
+          name="entry.286628918"
+          value={formData.furigana}
+        />
+        <input
+          type="hidden"
+          name="entry.1453514585"
+          value={formData.email}
+        />
+        <input
+          type="hidden"
+          name="entry.1236133254"
+          value={formData.phone}
+        />
+        <input
+          type="hidden"
+          name="entry.1025760241"
+          value={formData.address}
+        />
+        <input
+          type="hidden"
+          name="entry.1685769336"
+          value={formData.requestType}
+        />
+        <input
+          type="hidden"
+          name="entry.627008439"
+          value={formData.timing}
+        />
+
+        {formData.statuses.map((status) => (
+          <input
+            key={status}
+            type="hidden"
+            name="entry.809008481"
+            value={status}
+          />
+        ))}
+
+        <input
+          type="hidden"
+          name="entry.135116182"
+          value={formData.area}
+        />
+        <input
+          type="hidden"
+          name="entry.1955319601"
+          value={formData.landStatus}
+        />
+        <input
+          type="hidden"
+          name="entry.780287589"
+          value={formData.budget}
+        />
+        <input
+          type="hidden"
+          name="entry.404848345"
+          value={formData.gift}
+        />
+        <input
+          type="hidden"
+          name="entry.2057376373"
+          value={formData.message}
+        />
+
+        {step === 1 && (
+          <div className="formStep">
+            <div className="stepHeading">
+              <span>STEP 01</span>
+              <h3>お客様情報を入力してください</h3>
+              <p>担当者からのご連絡に必要な情報です。</p>
+            </div>
+
+            <div className="stepFields twoColumns">
+              <label>
+                <span>
+                  お名前 <b>必須</b>
+                </span>
+                <input
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) =>
+                    updateField('name', e.target.value)
+                  }
+                  placeholder="例）山田 太郎"
+                  autoComplete="name"
+                />
+              </label>
+
+              <label>
+                <span>
+                  ふりがな <b>必須</b>
+                </span>
+                <input
+                  type="text"
+                  value={formData.furigana}
+                  onChange={(e) =>
+                    updateField('furigana', e.target.value)
+                  }
+                  placeholder="例）やまだ たろう"
+                />
+              </label>
+
+              <label>
+                <span>
+                  メールアドレス <b>必須</b>
+                </span>
+                <input
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) =>
+                    updateField('email', e.target.value)
+                  }
+                  placeholder="例）example@gmail.com"
+                  autoComplete="email"
+                />
+              </label>
+
+              <label>
+                <span>
+                  電話番号 <b>必須</b>
+                </span>
+                <input
+                  type="tel"
+                  value={formData.phone}
+                  onChange={(e) =>
+                    updateField('phone', e.target.value)
+                  }
+                  placeholder="例）090-1234-5678"
+                  autoComplete="tel"
+                />
+              </label>
+
+              <label className="full">
+                <span>
+                  現在のお住まい <b>必須</b>
+                </span>
+                <small>市区町村までで結構です。</small>
+                <input
+                  type="text"
+                  value={formData.address}
+                  onChange={(e) =>
+                    updateField('address', e.target.value)
+                  }
+                  placeholder="例）埼玉県深谷市"
+                />
+              </label>
+            </div>
+          </div>
+        )}
+
+        {step === 2 && (
+          <div className="formStep">
+            <div className="stepHeading">
+              <span>STEP 02</span>
+              <h3>ご希望の内容を教えてください</h3>
+              <p>現在決まっている範囲でお選びください。</p>
+            </div>
+
+            <div className="questionBlock">
+              <h4>
+                ご希望の内容 <b>必須</b>
+              </h4>
+
+              <div className="selectCards">
+                {[
+                  'プロヴァンス見学',
+                  'スマートハウス見学',
+                  '２棟まとめて見学',
+                  'まだ決めてない（資料請求のみ依頼したい）',
+                ].map((value) => (
+                  <label
+                    key={value}
+                    className={
+                      formData.requestType === value
+                        ? 'selected'
+                        : ''
+                    }
+                  >
+                    <input
+                      type="radio"
+                      checked={formData.requestType === value}
+                      onChange={() =>
+                        updateField('requestType', value)
+                      }
+                    />
+                    <span>{value}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <div className="questionBlock">
+              <h4>
+                家づくりのご予定時期 <b>必須</b>
+              </h4>
+
+              <div className="selectCards compact">
+                {[
+                  '半年以内',
+                  '1年以内',
+                  '2年以内',
+                  '3年以内',
+                  'まだ決めていない',
+                ].map((value) => (
+                  <label
+                    key={value}
+                    className={
+                      formData.timing === value ? 'selected' : ''
+                    }
+                  >
+                    <input
+                      type="radio"
+                      checked={formData.timing === value}
+                      onChange={() =>
+                        updateField('timing', value)
+                      }
+                    />
+                    <span>{value}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {step === 3 && (
+          <div className="formStep">
+            <div className="stepHeading">
+              <span>STEP 03</span>
+              <h3>家づくりについて教えてください</h3>
+              <p>未定の項目は空欄でも問題ありません。</p>
+            </div>
+
+            <div className="questionBlock">
+              <h4>現在の家づくり状況</h4>
+              <p>当てはまるものをすべてお選びください。</p>
+
+              <div className="selectCards">
+                {[
+                  '情報収集中',
+                  '土地を探している',
+                  '土地を持っている',
+                  '住宅会社を比較している',
+                  '具体的な間取りを検討している',
+                  '資金計画を相談したい',
+                  '住宅ローンを相談したい',
+                ].map((value) => (
+                  <label
+                    key={value}
+                    className={
+                      formData.statuses.includes(value)
+                        ? 'selected'
+                        : ''
+                    }
+                  >
+                    <input
+                      type="checkbox"
+                      checked={formData.statuses.includes(value)}
+                      onChange={() => toggleStatus(value)}
+                    />
+                    <span>{value}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <div className="stepFields">
+              <label>
+                <span>建築予定エリア</span>
+                <input
+                  type="text"
+                  value={formData.area}
+                  onChange={(e) =>
+                    updateField('area', e.target.value)
+                  }
+                  placeholder="例）深谷市、熊谷市、寄居町周辺"
+                />
+              </label>
+            </div>
+
+            <div className="questionBlock">
+              <h4>
+                土地の状況 <b>必須</b>
+              </h4>
+
+              <div className="selectCards compact">
+                {[
+                  '土地を持っている',
+                  '土地を探している',
+                  '建て替えを検討している',
+                  'まだ決めていない',
+                ].map((value) => (
+                  <label
+                    key={value}
+                    className={
+                      formData.landStatus === value
+                        ? 'selected'
+                        : ''
+                    }
+                  >
+                    <input
+                      type="radio"
+                      checked={formData.landStatus === value}
+                      onChange={() =>
+                        updateField('landStatus', value)
+                      }
+                    />
+                    <span>{value}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <div className="questionBlock">
+              <h4>建物・土地を含めた総予算</h4>
+
+              <div className="selectCards compact">
+                {[
+                  '3,000万円〜4,000万円',
+                  '4,000万円〜5,000万円',
+                  '5,000万円以上',
+                  'まだ決めていない',
+                ].map((value) => (
+                  <label
+                    key={value}
+                    className={
+                      formData.budget === value ? 'selected' : ''
+                    }
+                  >
+                    <input
+                      type="radio"
+                      checked={formData.budget === value}
+                      onChange={() =>
+                        updateField('budget', value)
+                      }
+                    />
+                    <span>{value}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {step === 4 && (
+          <div className="formStep">
+            <div className="stepHeading">
+              <span>STEP 04</span>
+              <h3>特典とご相談内容を入力してください</h3>
+              <p>入力内容を確認して送信してください。</p>
+            </div>
+
+            <div className="questionBlock">
+              <h4>来場特典のご希望</h4>
+
+              <div className="selectCards giftSelect">
+                {[
+                  '松阪牛',
+                  'towerカタログギフト',
+                  'スターバックスチケット',
+                ].map((value) => (
+                  <label
+                    key={value}
+                    className={
+                      formData.gift === value ? 'selected' : ''
+                    }
+                  >
+                    <input
+                      type="radio"
+                      checked={formData.gift === value}
+                      onChange={() => updateField('gift', value)}
+                    />
+                    <span>{value}</span>
+                  </label>
+                ))}
+              </div>
+
+              <p className="fieldNote">
+                ※来場特典には適用条件がございます。
+              </p>
+            </div>
+
+            <div className="stepFields">
+              <label>
+                <span>ご質問・ご相談</span>
+                <textarea
+                  value={formData.message}
+                  onChange={(e) =>
+                    updateField('message', e.target.value)
+                  }
+                  placeholder="間取り、土地探し、住宅ローン、性能など、気になることをご記入ください。"
+                  rows={6}
+                />
+              </label>
+            </div>
+
+            <div className="confirmSummary">
+              <h4>入力内容</h4>
+
+              <dl>
+                <div>
+                  <dt>お名前</dt>
+                  <dd>{formData.name}</dd>
+                </div>
+                <div>
+                  <dt>ご希望</dt>
+                  <dd>{formData.requestType}</dd>
+                </div>
+                <div>
+                  <dt>予定時期</dt>
+                  <dd>{formData.timing}</dd>
+                </div>
+                <div>
+                  <dt>建築予定エリア</dt>
+                  <dd>{formData.area || '未入力'}</dd>
+                </div>
+              </dl>
+            </div>
+
+            <label className="privacyCheck">
+              <input
+                type="checkbox"
+                checked={formData.privacy}
+                onChange={(e) =>
+                  updateField('privacy', e.target.checked)
+                }
+              />
+              <span>個人情報の取り扱いに同意します。</span>
+            </label>
+          </div>
+        )}
+
+        <div className="stepButtons">
+          {step > 1 && (
+            <button
+              type="button"
+              className="backButton"
+              onClick={prevStep}
+            >
+              <ChevronLeft size={18} />
+              戻る
+            </button>
+          )}
+
+          {step < 4 ? (
+            <button
+              type="button"
+              className="nextButton"
+              onClick={nextStep}
+            >
+              次へ進む
+              <ChevronRight size={18} />
+            </button>
+          ) : (
+            <button type="submit" className="submitButton">
+              この内容で送信する
+              <ChevronRight size={18} />
+            </button>
+          )}
+        </div>
+      </form>
+    </div>
+  );
+}
 export default function Page(){return <><Header/><main>
   <section className="hero">
   <div className="heroCopy">
@@ -253,325 +906,9 @@ export default function Page(){return <><Header/><main>
   </details>
 </section>
 
- <section className="container reserve" id="reserve">
+<section className="container reserve" id="reserve">
   <Gift />
-
-  <div className="formBox">
-    <p className="eyebrow">CONTACT</p>
-
-    <h2>モデルハウス見学・資料請求のお申し込み</h2>
-
-    <p className="formLead">
-      下記フォームより必要事項をご入力ください。
-      見学をご希望の場合は、内容を確認後に担当者よりご連絡し、
-      見学日時を調整させていただきます。
-    </p>
-
-    <p className="formNotice">
-      ※フォームの送信時点では、見学予約は確定しておりません。
-    </p>
-
-    {/* Googleフォームへの送信先を画面に表示させないためのiframe */}
-    <iframe
-      name="google-form-submit"
-      title="Googleフォーム送信用"
-      className="hiddenFormFrame"
-    />
-
-    <form
-      className="reserveForm"
-      action="https://docs.google.com/forms/d/e/1FAIpQLSe24qMYgvsVbR4KcUKKwAGV7vjB8FiZIwJTZ0SYJfrSHur1JQ/formResponse"
-      method="POST"
-      target="google-form-submit"
-      onSubmit={(event) => {
-        const form = event.currentTarget;
-
-        setTimeout(() => {
-          form.reset();
-
-          alert(
-            'お問い合わせありがとうございます。内容を確認後、Viehouse担当者よりご連絡いたします。'
-          );
-        }, 700);
-      }}
-    >
-      <label>
-        <span className="formLabel">
-          お名前
-          <span className="required">必須</span>
-        </span>
-
-        <input
-          type="text"
-          name="entry.1185507046"
-          placeholder="例）山田 太郎"
-          autoComplete="name"
-          required
-        />
-      </label>
-
-      <label>
-        <span className="formLabel">
-          ふりがな
-          <span className="required">必須</span>
-        </span>
-
-        <input
-          type="text"
-          name="entry.286628918"
-          placeholder="例）やまだ たろう"
-          required
-        />
-      </label>
-
-      <label>
-        <span className="formLabel">
-          メールアドレス
-          <span className="required">必須</span>
-        </span>
-
-        <input
-          type="email"
-          name="entry.1453514585"
-          placeholder="例）example@gmail.com"
-          autoComplete="email"
-          required
-        />
-      </label>
-
-      <label>
-        <span className="formLabel">
-          電話番号
-          <span className="required">必須</span>
-        </span>
-
-        <input
-          type="tel"
-          name="entry.1236133254"
-          placeholder="例）090-1234-5678"
-          autoComplete="tel"
-          required
-        />
-      </label>
-
-      <label className="full">
-        <span className="formLabel">
-          現在のお住まい
-          <span className="required">必須</span>
-        </span>
-
-        <small>市区町村までで結構です。</small>
-
-        <input
-          type="text"
-          name="entry.1025760241"
-          placeholder="例）埼玉県深谷市"
-          autoComplete="address-level2"
-          required
-        />
-      </label>
-
-      <fieldset className="full">
-        <legend>
-          ご希望の内容
-          <span className="required">必須</span>
-        </legend>
-
-        <div className="formChoices">
-          {[
-            'プロヴァンス見学',
-            'スマートハウス見学',
-            '２棟まとめて見学',
-            'まだ決めてない（資料請求のみ依頼したい）',
-          ].map((value) => (
-            <label className="choice" key={value}>
-              <input
-                type="radio"
-                name="entry.1685769336"
-                value={value}
-                required
-              />
-              <span>{value}</span>
-            </label>
-          ))}
-        </div>
-      </fieldset>
-
-      <fieldset className="full">
-        <legend>
-          家づくりのご予定時期
-          <span className="required">必須</span>
-        </legend>
-
-        <div className="formChoices">
-          {[
-            '半年以内',
-            '1年以内',
-            '2年以内',
-            '3年以内',
-            'まだ決めていない',
-          ].map((value) => (
-            <label className="choice" key={value}>
-              <input
-                type="radio"
-                name="entry.627008439"
-                value={value}
-                required
-              />
-              <span>{value}</span>
-            </label>
-          ))}
-        </div>
-      </fieldset>
-
-      <fieldset className="full">
-        <legend>現在の家づくり状況</legend>
-
-        <p className="fieldDescription">
-          当てはまるものをすべてお選びください。
-        </p>
-
-        <div className="formChoices">
-          {[
-            '情報収集中',
-            '土地を探している',
-            '土地を持っている',
-            '住宅会社を比較している',
-            '具体的な間取りを検討している',
-            '資金計画を相談したい',
-            '住宅ローンを相談したい',
-          ].map((value) => (
-            <label className="choice" key={value}>
-              <input
-                type="checkbox"
-                name="entry.809008481"
-                value={value}
-              />
-              <span>{value}</span>
-            </label>
-          ))}
-        </div>
-      </fieldset>
-
-      <label className="full">
-        <span className="formLabel">建築予定エリア</span>
-
-        <small>
-          検討している市区町村やエリアをご入力ください。
-        </small>
-
-        <input
-          type="text"
-          name="entry.135116182"
-          placeholder="例）深谷市、熊谷市、寄居町周辺"
-        />
-      </label>
-
-      <fieldset className="full">
-        <legend>
-          土地の状況
-          <span className="required">必須</span>
-        </legend>
-
-        <div className="formChoices">
-          {[
-            '土地を持っている',
-            '土地を探している',
-            '建て替えを検討している',
-            'まだ決めていない',
-          ].map((value) => (
-            <label className="choice" key={value}>
-              <input
-                type="radio"
-                name="entry.1955319601"
-                value={value}
-                required
-              />
-              <span>{value}</span>
-            </label>
-          ))}
-        </div>
-      </fieldset>
-
-      <fieldset className="full">
-        <legend>ご予算</legend>
-
-        <p className="fieldDescription">
-          建物・土地を含めた総予算の目安を教えてください。
-        </p>
-
-        <div className="formChoices">
-          {[
-            '3,000万円〜4,000万円',
-            '4,000万円〜5,000万円',
-            '5,000万円以上',
-            'まだ決めていない',
-          ].map((value) => (
-            <label className="choice" key={value}>
-              <input
-                type="radio"
-                name="entry.780287589"
-                value={value}
-              />
-              <span>{value}</span>
-            </label>
-          ))}
-        </div>
-      </fieldset>
-
-      <fieldset className="full">
-        <legend>来場特典のご希望</legend>
-
-        <div className="formChoices">
-          {[
-            '松阪牛',
-            'towerカタログギフト',
-            'スターバックスチケット',
-          ].map((value) => (
-            <label className="choice" key={value}>
-              <input
-                type="radio"
-                name="entry.404848345"
-                value={value}
-              />
-              <span>{value}</span>
-            </label>
-          ))}
-        </div>
-
-        <p className="fieldDescription giftCondition">
-          ※来場特典には適用条件がございます。詳しくは担当者よりご案内いたします。
-        </p>
-      </fieldset>
-
-      <label className="full">
-        <span className="formLabel">ご質問・ご相談</span>
-
-        <textarea
-          name="entry.2057376373"
-          placeholder="間取り、土地探し、住宅ローン、性能など、気になることをご記入ください。"
-          rows={6}
-        />
-      </label>
-
-      <label className="privacyCheck full">
-        <input type="checkbox" required />
-
-        <span>
-          個人情報の取り扱いに同意して送信します。
-        </span>
-      </label>
-
-      <button type="submit" className="reserveSubmit">
-        入力内容を送信する
-        <ChevronRight size={18} />
-      </button>
-
-      <p className="submitNote full">
-        送信後、Viehouse担当者よりお電話またはメールにてご連絡いたします。
-      </p>
-    </form>
-  </div>
+  <ReserveForm />
 </section>
 
   <section className="bottom"><div className="container bottomInner"><h2>写真では伝わらない心地よさがあります。<br/>まずはモデルハウスでご体感ください。</h2><div><a className="goldBtn" href="#reserve">プロヴァンスを見学予約する</a><a className="blueBtn" href="#reserve">スマートハウスを見学予約する</a></div><aside><p>お電話でのご予約・お問い合わせはこちら</p><strong>048-584-7779</strong><span>受付時間 / 9:00〜19:00　定休日 / 不定期</span></aside></div></section>
