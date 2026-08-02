@@ -43,14 +43,14 @@ const faqs = [
 
 const youtubeItems = [
   [
-    '南仏スタイルのかわいい家',
-    '13坪 / 漆喰 / 無垢材',
+    'ずっと愛せる、南仏スタイルの家',
+    'デザインのこだわりや暮らしの魅力をご紹介,
     '/images/youtube-provence.jpg',
     'https://youtu.be/sgWQRtHu3s4?si=PAOvXjxYdqrUQTOL',
   ],
   [
-    '電気代0円を目指すスマートハウス',
-    '33坪 / 太陽光 / 蓄電池',
+    '未来を見据えた、賢いスマートハウス',
+    '性能や設備の工夫をわかりやすく解説,
     '/images/youtube-smart.jpg',
     'https://youtu.be/Tr4HoUN_Kdw?si=40-3oxzaaujodDpf',
   ],
