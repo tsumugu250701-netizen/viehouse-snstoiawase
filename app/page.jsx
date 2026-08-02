@@ -67,7 +67,24 @@ const voiceItems = [
   ['デザインも性能も妥協しなくてよかった！', 'プロヴァンス / 埼玉県 S様', '見た目のかわいさだけでなく、冬も快適に過ごせる住まいになりました。'],
 ];
 
-function YoutubeCard({item}){return <article className="youtubeCard"><div className="youtubeImage"><img src={item[2]} alt={item[0]}/><span>▶</span></div><h3>{item[0]}</h3><p>{item[1]}</p></article>}
+function YoutubeCard({ item }) {
+  return (
+    <a
+      className="youtubeCard"
+      href={item[3]}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <div className="youtubeImage">
+        <img src={item[2]} alt={item[0]} />
+        <span>▶</span>
+      </div>
+
+      <h3>{item[0]}</h3>
+      <p>{item[1]}</p>
+    </a>
+  );
+}
 function VoiceCard({item}){return <article className="voiceCard"><div className="stars"><Star/><Star/><Star/><Star/><Star/></div><h3>{item[0]}</h3><p className="voiceMeta">{item[1]}</p><p>{item[2]}</p></article>}
 
 
