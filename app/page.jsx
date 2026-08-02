@@ -200,14 +200,12 @@ function ReserveForm() {
       return;
     }
 
-    setStep((prev) => Math.min(prev + 1, 4));
-    setTimeout(goTop, 50);
+setStep((prev) => Math.min(prev + 1, 4));
   };
 
-  const back = () => {
-    setStep((prev) => Math.max(prev - 1, 1));
-    setTimeout(goTop, 50);
-  };
+const back = () => {
+  setStep((prev) => Math.max(prev - 1, 1));
+};
 
   const submitForm = (event) => {
     if (!data.privacy) {
