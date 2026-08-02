@@ -584,9 +584,10 @@ export default function Page() {
   <span>比べて、体感してください。</span>
 </h1>
 
-  <span>
-    プロヴァンスとスマートハウスの2棟モデルハウス見学受付中
-  </span>
+<span className="heroSub">
+  <span>プロヴァンスとスマートハウス</span>
+  <span>2棟モデルハウス見学受付中</span>
+</span>
 
   <a href="#reserve" className="mainCta">
     WEB予約限定・選べる5,000円相当の来場特典をご用意
