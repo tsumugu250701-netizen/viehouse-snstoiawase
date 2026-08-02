@@ -2020,3 +2020,26 @@ tbody th {
     line-height: 1.7;
   }
 }
+.heroSub{
+  text-align:center;
+  font-size:20px;
+  font-weight:500;
+  line-height:1.8;
+}
+
+.spOnly{
+  display:none;
+}
+
+@media (max-width:768px){
+
+  .heroSub{
+    font-size:15px;
+    line-height:1.7;
+  }
+
+  .spOnly{
+    display:block;
+  }
+
+}
