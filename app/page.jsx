@@ -43,20 +43,20 @@ const faqs = [
 
 const youtubeItems = [
   [
-    'ずっと愛せる、南仏スタイルの家',
-    'デザインのこだわりや暮らしの魅力をご紹介,
+    '何十年経っても愛せる、南仏の住まい',
+    '本物の素材がつくる心地よい暮らしをご紹介',
     '/images/youtube-provence.jpg',
     'https://youtu.be/sgWQRtHu3s4?si=PAOvXjxYdqrUQTOL',
   ],
   [
-    '未来を見据えた、賢いスマートハウス',
-    '性能や設備の工夫をわかりやすく解説,
+    '未来基準のスマートハウス',
+    '太陽光・蓄電池・高性能住宅の魅力を徹底解説',
     '/images/youtube-smart.jpg',
     'https://youtu.be/Tr4HoUN_Kdw?si=40-3oxzaaujodDpf',
   ],
   [
     '家づくりで後悔しないために',
-    '資金計画 / 間取り / 性能',
+    '失敗しない住宅会社選びのポイントをお伝えします',
     '/images/youtube-plan.jpg',
     'https://youtu.be/ieevSo5tTWU?si=fAMczI4BRsLV2vxz',
   ],
