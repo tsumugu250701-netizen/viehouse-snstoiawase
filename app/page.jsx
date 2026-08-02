@@ -253,7 +253,326 @@ export default function Page(){return <><Header/><main>
   </details>
 </section>
 
-  <section className="container reserve" id="reserve"><Gift/><div className="formBox"><p className="eyebrow">RESERVE</p><h2>ご希望の日時でかんたんWEB予約</h2><p className="formNote">※Googleフォーム連携の場合は、下記フォーム部分を埋め込みURLに差し替えてください。</p><form><label>お名前<input placeholder="例）山田 太郎"/></label><label>ご希望日<select><option>希望日を選択</option></select></label><label>お電話番号<input placeholder="例）090-1234-5678"/></label><label>ご希望のモデルハウス<select><option>どちらでも可</option><option>プロヴァンス</option><option>スマートハウス</option><option>2棟まとめて見学</option></select></label><label className="full">ご質問・ご相談など<textarea placeholder="ご要望があればご記入ください"/></label><button type="button">確認画面へ進む <ChevronRight size={18}/></button></form></div></section>
+ <section className="container reserve" id="reserve">
+  <Gift />
+
+  <div className="formBox">
+    <p className="eyebrow">CONTACT</p>
+
+    <h2>モデルハウス見学・資料請求のお申し込み</h2>
+
+    <p className="formLead">
+      下記フォームより必要事項をご入力ください。
+      見学をご希望の場合は、内容を確認後に担当者よりご連絡し、
+      見学日時を調整させていただきます。
+    </p>
+
+    <p className="formNotice">
+      ※フォームの送信時点では、見学予約は確定しておりません。
+    </p>
+
+    {/* Googleフォームへの送信先を画面に表示させないためのiframe */}
+    <iframe
+      name="google-form-submit"
+      title="Googleフォーム送信用"
+      className="hiddenFormFrame"
+    />
+
+    <form
+      className="reserveForm"
+      action="https://docs.google.com/forms/d/e/1FAIpQLSe24qMYgvsVbR4KcUKKwAGV7vjB8FiZIwJTZ0SYJfrSHur1JQ/formResponse"
+      method="POST"
+      target="google-form-submit"
+      onSubmit={(event) => {
+        const form = event.currentTarget;
+
+        setTimeout(() => {
+          form.reset();
+
+          alert(
+            'お問い合わせありがとうございます。内容を確認後、Viehouse担当者よりご連絡いたします。'
+          );
+        }, 700);
+      }}
+    >
+      <label>
+        <span className="formLabel">
+          お名前
+          <span className="required">必須</span>
+        </span>
+
+        <input
+          type="text"
+          name="entry.1185507046"
+          placeholder="例）山田 太郎"
+          autoComplete="name"
+          required
+        />
+      </label>
+
+      <label>
+        <span className="formLabel">
+          ふりがな
+          <span className="required">必須</span>
+        </span>
+
+        <input
+          type="text"
+          name="entry.286628918"
+          placeholder="例）やまだ たろう"
+          required
+        />
+      </label>
+
+      <label>
+        <span className="formLabel">
+          メールアドレス
+          <span className="required">必須</span>
+        </span>
+
+        <input
+          type="email"
+          name="entry.1453514585"
+          placeholder="例）example@gmail.com"
+          autoComplete="email"
+          required
+        />
+      </label>
+
+      <label>
+        <span className="formLabel">
+          電話番号
+          <span className="required">必須</span>
+        </span>
+
+        <input
+          type="tel"
+          name="entry.1236133254"
+          placeholder="例）090-1234-5678"
+          autoComplete="tel"
+          required
+        />
+      </label>
+
+      <label className="full">
+        <span className="formLabel">
+          現在のお住まい
+          <span className="required">必須</span>
+        </span>
+
+        <small>市区町村までで結構です。</small>
+
+        <input
+          type="text"
+          name="entry.1025760241"
+          placeholder="例）埼玉県深谷市"
+          autoComplete="address-level2"
+          required
+        />
+      </label>
+
+      <fieldset className="full">
+        <legend>
+          ご希望の内容
+          <span className="required">必須</span>
+        </legend>
+
+        <div className="formChoices">
+          {[
+            'プロヴァンス見学',
+            'スマートハウス見学',
+            '２棟まとめて見学',
+            'まだ決めてない（資料請求のみ依頼したい）',
+          ].map((value) => (
+            <label className="choice" key={value}>
+              <input
+                type="radio"
+                name="entry.1685769336"
+                value={value}
+                required
+              />
+              <span>{value}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <fieldset className="full">
+        <legend>
+          家づくりのご予定時期
+          <span className="required">必須</span>
+        </legend>
+
+        <div className="formChoices">
+          {[
+            '半年以内',
+            '1年以内',
+            '2年以内',
+            '3年以内',
+            'まだ決めていない',
+          ].map((value) => (
+            <label className="choice" key={value}>
+              <input
+                type="radio"
+                name="entry.627008439"
+                value={value}
+                required
+              />
+              <span>{value}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <fieldset className="full">
+        <legend>現在の家づくり状況</legend>
+
+        <p className="fieldDescription">
+          当てはまるものをすべてお選びください。
+        </p>
+
+        <div className="formChoices">
+          {[
+            '情報収集中',
+            '土地を探している',
+            '土地を持っている',
+            '住宅会社を比較している',
+            '具体的な間取りを検討している',
+            '資金計画を相談したい',
+            '住宅ローンを相談したい',
+          ].map((value) => (
+            <label className="choice" key={value}>
+              <input
+                type="checkbox"
+                name="entry.809008481"
+                value={value}
+              />
+              <span>{value}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <label className="full">
+        <span className="formLabel">建築予定エリア</span>
+
+        <small>
+          検討している市区町村やエリアをご入力ください。
+        </small>
+
+        <input
+          type="text"
+          name="entry.135116182"
+          placeholder="例）深谷市、熊谷市、寄居町周辺"
+        />
+      </label>
+
+      <fieldset className="full">
+        <legend>
+          土地の状況
+          <span className="required">必須</span>
+        </legend>
+
+        <div className="formChoices">
+          {[
+            '土地を持っている',
+            '土地を探している',
+            '建て替えを検討している',
+            'まだ決めていない',
+          ].map((value) => (
+            <label className="choice" key={value}>
+              <input
+                type="radio"
+                name="entry.1955319601"
+                value={value}
+                required
+              />
+              <span>{value}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <fieldset className="full">
+        <legend>ご予算</legend>
+
+        <p className="fieldDescription">
+          建物・土地を含めた総予算の目安を教えてください。
+        </p>
+
+        <div className="formChoices">
+          {[
+            '3,000万円〜4,000万円',
+            '4,000万円〜5,000万円',
+            '5,000万円以上',
+            'まだ決めていない',
+          ].map((value) => (
+            <label className="choice" key={value}>
+              <input
+                type="radio"
+                name="entry.780287589"
+                value={value}
+              />
+              <span>{value}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <fieldset className="full">
+        <legend>来場特典のご希望</legend>
+
+        <div className="formChoices">
+          {[
+            '松阪牛',
+            'towerカタログギフト',
+            'スターバックスチケット',
+          ].map((value) => (
+            <label className="choice" key={value}>
+              <input
+                type="radio"
+                name="entry.404848345"
+                value={value}
+              />
+              <span>{value}</span>
+            </label>
+          ))}
+        </div>
+
+        <p className="fieldDescription giftCondition">
+          ※来場特典には適用条件がございます。詳しくは担当者よりご案内いたします。
+        </p>
+      </fieldset>
+
+      <label className="full">
+        <span className="formLabel">ご質問・ご相談</span>
+
+        <textarea
+          name="entry.2057376373"
+          placeholder="間取り、土地探し、住宅ローン、性能など、気になることをご記入ください。"
+          rows={6}
+        />
+      </label>
+
+      <label className="privacyCheck full">
+        <input type="checkbox" required />
+
+        <span>
+          個人情報の取り扱いに同意して送信します。
+        </span>
+      </label>
+
+      <button type="submit" className="reserveSubmit">
+        入力内容を送信する
+        <ChevronRight size={18} />
+      </button>
+
+      <p className="submitNote full">
+        送信後、Viehouse担当者よりお電話またはメールにてご連絡いたします。
+      </p>
+    </form>
+  </div>
+</section>
 
   <section className="bottom"><div className="container bottomInner"><h2>写真では伝わらない心地よさがあります。<br/>まずはモデルハウスでご体感ください。</h2><div><a className="goldBtn" href="#reserve">プロヴァンスを見学予約する</a><a className="blueBtn" href="#reserve">スマートハウスを見学予約する</a></div><aside><p>お電話でのご予約・お問い合わせはこちら</p><strong>048-584-7779</strong><span>受付時間 / 9:00〜19:00　定休日 / 不定期</span></aside></div></section>
 </main><footer><div className="container footer"><div className="logo">Viehouse</div><nav><a>モデルハウス</a><a>YouTube</a><a>お客様の声</a><a>家づくりのこだわり</a><a>会社案内</a></nav><a className="outline" href="#reserve">来場予約はこちら</a></div></footer></>}
