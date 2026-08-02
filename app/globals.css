@@ -640,3 +640,48 @@ height:220px;
     order: 2;
   }
 }
+.formBox{
+  width:100%;
+}
+
+.stepForm{
+  width:100%;
+}
+
+.formStep{
+  width:100%;
+}
+
+.stepFields{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:20px;
+}
+
+.stepFields .full{
+  grid-column:1/-1;
+}
+
+.stepFields label{
+  width:100%;
+  display:flex;
+  flex-direction:column;
+}
+
+.stepFields input,
+.stepFields textarea{
+  width:100%;
+  box-sizing:border-box;
+}
+
+.stepButtons{
+  display:flex;
+  justify-content:flex-end;
+  margin-top:30px;
+}
+
+@media(max-width:768px){
+  .stepFields{
+    grid-template-columns:1fr;
+  }
+}
