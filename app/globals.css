@@ -1988,3 +1988,19 @@ tbody th {
     transform: none;
   }
 }
+.heroSub{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:4px;
+  text-align:center;
+  font-size:28px;
+  line-height:1.6;
+}
+
+@media (max-width:768px){
+  .heroSub{
+    font-size:18px;
+    line-height:1.5;
+  }
+}
