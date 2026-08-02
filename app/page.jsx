@@ -558,20 +558,25 @@ const submitForm = async (event) => {
 }
 
 export default function Page(){return <><Header/><main>
-  <section className="hero">
-  <div className="heroCopy">
-    <p>見るだけで、家づくりが楽しくなる。</p>
-<h1 className="heroTitle">
-  <span className="pcTitle">2つの暮らしを見て、</span>
-  <span className="pcTitle">比べて、体感してください。</span>
-</h1>
-    <span>
-      プロヴァンスとスマートハウスの2棟モデルハウス見学受付中
-    </span>
-    <a href="#reserve" className="mainCta">
-      WEB予約限定・選べる5,000円相当の来場特典をご用意
-    </a>
-  </div>
+ <div className="heroCopy">
+
+  <p>見るだけで、家づくりが楽しくなる。</p>
+
+  <h1 className="heroTitle">
+    2つの暮らしを見て、
+    <br />
+    比べて、体感してください。
+  </h1>
+
+  <span>
+    プロヴァンスとスマートハウスの2棟モデルハウス見学受付中
+  </span>
+
+  <a href="#reserve" className="mainCta">
+    WEB予約限定・選べる5,000円相当の来場特典をご用意
+  </a>
+
+</div>
 
   <div className="heroGrid">
     <HeroPanel
