@@ -1351,3 +1351,16 @@ height:220px;
     margin-top: 44px;
   }
 }
+.spTitle {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .pcTitle {
+    display: none !important;
+  }
+
+  .spTitle {
+    display: block;
+  }
+}
