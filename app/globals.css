@@ -2004,3 +2004,19 @@ tbody th {
     line-height:1.5;
   }
 }
+.heroSub {
+  margin: 0 auto 26px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.8;
+  letter-spacing: 0.03em;
+  text-align: center;
+}
+
+@media (max-width: 580px) {
+  .heroSub {
+    margin-bottom: 20px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+}
