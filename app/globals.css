@@ -1354,3 +1354,46 @@ height:220px;
 .spTitle {
   display: none;
 }
+@media (max-width: 768px) {
+  .heroCopy {
+    width: 100%;
+    padding: 0 24px;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  .heroTitle {
+    margin: 0 0 28px;
+    font-size: 40px;
+    line-height: 1.35;
+    letter-spacing: -0.03em;
+  }
+
+  .heroCopy > span {
+    display: block;
+    width: 100%;
+    margin: 0 auto 22px;
+    font-size: 16px;
+    line-height: 1.7;
+    word-break: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .mainCta {
+    display: flex;
+    width: 100%;
+    min-height: 82px;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 24px;
+    box-sizing: border-box;
+    font-size: 17px;
+    line-height: 1.5;
+    text-align: center;
+    white-space: normal;
+  }
+
+  .heroGrid {
+    margin-top: 42px;
+  }
+}
