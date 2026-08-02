@@ -564,10 +564,6 @@ export default function Page(){return <><Header/><main>
 <h1 className="heroTitle">
   <span className="pcTitle">2つの暮らしを見て、</span>
   <span className="pcTitle">比べて、体感してください。</span>
-
-  <span className="spTitle">2つの暮らしを見て、</span>
-  <span className="spTitle">比べて、体感して</span>
-  <span className="spTitle">ください。</span>
 </h1>
     <span>
       プロヴァンスとスマートハウスの2棟モデルハウス見学受付中
