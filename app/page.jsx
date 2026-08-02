@@ -41,9 +41,24 @@ const faqs = [
 ];
 
 const youtubeItems = [
-  ['南仏スタイルのかわいい家', '13坪 / 漆喰 / 無垢材', images.provenceHero],
-  ['電気代0円を目指すスマートハウス', '33坪 / 太陽光 / 蓄電池', images.smartHero],
-  ['家づくりで後悔しないために', '資金計画 / 間取り / 性能', images.provenceMain],
+  [
+    '南仏スタイルのかわいい家',
+    '13坪 / 漆喰 / 無垢材',
+    '/images/youtube-provence.jpg',
+    'https://youtu.be/sgWQRtHu3s4?si=PAOvXjxYdqrUQTOL',
+  ],
+  [
+    '電気代0円を目指すスマートハウス',
+    '33坪 / 太陽光 / 蓄電池',
+    '/images/youtube-smart.jpg',
+    'https://youtu.be/Tr4HoUN_Kdw?si=40-3oxzaaujodDpf',
+  ],
+  [
+    '家づくりで後悔しないために',
+    '資金計画 / 間取り / 性能',
+    '/images/youtube-plan.jpg',
+    'https://youtu.be/ieevSo5tTWU?si=fAMczI4BRsLV2vxz',
+  ],
 ];
 
 const voiceItems = [
