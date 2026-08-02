@@ -580,10 +580,9 @@ export default function Page() {
   <p>見るだけで、家づくりが楽しくなる。</p>
 
   <h1 className="heroTitle">
-    2つの暮らしを見て、
-    <br />
-    比べて、体感してください。
-  </h1>
+  <span>2つの暮らしを見て、</span>
+  <span>比べて、体感してください。</span>
+</h1>
 
   <span>
     プロヴァンスとスマートハウスの2棟モデルハウス見学受付中
