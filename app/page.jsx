@@ -62,9 +62,24 @@ const youtubeItems = [
 ];
 
 const voiceItems = [
-  ['毎日帰るのが楽しみになる家になりました！', 'プロヴァンス / 埼玉県 K様', '面談やインテリアの相談も丁寧で、家づくりを心から楽しめました。'],
-  ['電気代が本当に安くなって驚いています！', 'スマート / 埼玉県 H様', '太陽光や蓄電池の仕組みもわかりやすく、暮らしてからの安心感が違います。'],
-  ['デザインも性能も妥協しなくてよかった！', 'プロヴァンス / 埼玉県 S様', '見た目のかわいさだけでなく、冬も快適に過ごせる住まいになりました。'],
+  [
+    'モデルハウスを見て「ここに住みたい」と思えました。',
+    'プロヴァンス / 埼玉県 H様',
+    'モデルハウスで体感した漆喰や無垢材の心地よさが決め手でした。完成した今も毎日帰るのが楽しみです。',
+    '/images/voice1.jpg'
+  ],
+  [
+    '電気代を気にしない暮らしが実現しました。',
+    'スマートハウス / 埼玉県 M様',
+    '太陽光と蓄電池のおかげで安心感があり、電気代を気にせず快適に暮らせています。',
+    '/images/voice2.jpg'
+  ],
+  [
+    '自然素材の温もりに毎日癒されています。',
+    'プロヴァンス / 埼玉県 I様',
+    '無垢材や漆喰の優しい空間と、家族が自然と集まる間取りがお気に入りです。',
+    '/images/voice3.jpg'
+  ],
 ];
 
 function YoutubeCard({ item }) {
@@ -85,7 +100,39 @@ function YoutubeCard({ item }) {
     </a>
   );
 }
-function VoiceCard({item}){return <article className="voiceCard"><div className="stars"><Star/><Star/><Star/><Star/><Star/></div><h3>{item[0]}</h3><p className="voiceMeta">{item[1]}</p><p>{item[2]}</p></article>}
+function VoiceCard({ item }) {
+  return (
+    <article className="voiceCard">
+
+      <div className="voiceImage">
+        <img src={item[3]} alt={item[0]} />
+      </div>
+
+      <div className="voiceContent">
+
+        <div className="stars">
+          <Star />
+          <Star />
+          <Star />
+          <Star />
+          <Star />
+        </div>
+
+        <h3>{item[0]}</h3>
+
+        <p className="voiceMeta">
+          {item[1]}
+        </p>
+
+        <p className="voiceText">
+          {item[2]}
+        </p>
+
+      </div>
+
+    </article>
+  );
+}
 
 
 function Header(){return <header className="header"><div className="container nav"><div className="logo">Viehouse</div><nav><a href="#model">モデルハウス</a><a href="#youtube">YouTube</a><a href="#voice">お客様の声</a><a href="#faq">FAQ</a></nav><a className="navCta" href="#reserve">来場予約する</a></div></header>}
