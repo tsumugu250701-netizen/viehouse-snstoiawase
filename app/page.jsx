@@ -271,19 +271,10 @@ const back = () => {
         ))}
       </div>
 
-      <iframe
-        name="google-form-submit"
-        title="Googleフォーム送信用"
-        className="vhHiddenFrame"
-      />
-
-      <form
-        className="vhStepForm"
-        action="https://docs.google.com/forms/d/e/1FAIpQLSe24qMYgvsVbR4KcUKKwAGV7vjB8FiZIwJTZ0SYJfrSHur1JQ/formResponse"
-        method="POST"
-        target="google-form-submit"
-        onSubmit={submitForm}
-      >
+ <form
+  className="vhStepForm"
+  onSubmit={submitForm}
+>
         <input type="hidden" name="entry.1185507046" value={data.name} />
         <input type="hidden" name="entry.286628918" value={data.furigana} />
         <input type="hidden" name="entry.1453514585" value={data.email} />
