@@ -207,18 +207,56 @@ const back = () => {
   setStep((prev) => Math.max(prev - 1, 1));
 };
 
-  const submitForm = (event) => {
-    if (!data.privacy) {
-      event.preventDefault();
-      alert('個人情報の取り扱いに同意してください。');
-      return;
-    }
+const submitForm = async (event) => {
+  event.preventDefault();
 
-    setTimeout(() => {
-      setSubmitted(true);
-      goTop();
-    }, 700);
-  };
+  if (!data.privacy) {
+    alert('個人情報の取り扱いに同意してください。');
+    return;
+  }
+
+  const formBody = new URLSearchParams();
+
+  formBody.append('entry.1185507046', data.name);
+  formBody.append('entry.286628918', data.furigana);
+  formBody.append('entry.1453514585', data.email);
+  formBody.append('entry.1236133254', data.phone);
+  formBody.append('entry.1025760241', data.address);
+  formBody.append('entry.1685769336', data.requestType);
+  formBody.append('entry.627008439', data.timing);
+
+  data.statuses.forEach((status) => {
+    formBody.append('entry.809008481', status);
+  });
+
+  formBody.append('entry.135116182', data.area);
+  formBody.append('entry.1955319601', data.landStatus);
+  formBody.append('entry.780287589', data.budget);
+  formBody.append('entry.404848345', data.gift);
+  formBody.append('entry.2057376373', data.message);
+
+  try {
+    await fetch(
+      'https://docs.google.com/forms/d/e/1FAIpQLSe24qMYgvsVbR4KcUKKwAGV7vjB8FiZIwJTZ0SYJfrSHur1JQ/formResponse',
+      {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: formBody.toString(),
+      }
+    );
+
+    setSubmitted(true);
+  } catch (error) {
+    console.error('Googleフォーム送信エラー:', error);
+
+    alert(
+      '送信に失敗しました。通信環境をご確認のうえ、もう一度お試しください。'
+    );
+  }
+};
 
   const choice = (field, value) => (
     <label className={`vhChoice ${data[field] === value ? 'isSelected' : ''}`}>
@@ -275,27 +313,6 @@ const back = () => {
   className="vhStepForm"
   onSubmit={submitForm}
 >
-        <input type="hidden" name="entry.1185507046" value={data.name} />
-        <input type="hidden" name="entry.286628918" value={data.furigana} />
-        <input type="hidden" name="entry.1453514585" value={data.email} />
-        <input type="hidden" name="entry.1236133254" value={data.phone} />
-        <input type="hidden" name="entry.1025760241" value={data.address} />
-        <input type="hidden" name="entry.1685769336" value={data.requestType} />
-        <input type="hidden" name="entry.627008439" value={data.timing} />
-        {data.statuses.map((status) => (
-          <input
-            key={status}
-            type="hidden"
-            name="entry.809008481"
-            value={status}
-          />
-        ))}
-        <input type="hidden" name="entry.135116182" value={data.area} />
-        <input type="hidden" name="entry.1955319601" value={data.landStatus} />
-        <input type="hidden" name="entry.780287589" value={data.budget} />
-        <input type="hidden" name="entry.404848345" value={data.gift} />
-        <input type="hidden" name="entry.2057376373" value={data.message} />
-
         {step === 1 && (
           <section className="vhPanel">
             <div className="vhPanelHead">
