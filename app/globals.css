@@ -1285,3 +1285,69 @@ height:220px;
     gap: 6px;
   }
 }
+@media (max-width: 768px) {
+  /* ファーストビュー全体 */
+  .hero {
+    padding-top: 58px;
+  }
+
+  .heroCopy {
+    width: 100%;
+    padding: 0 24px;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  .heroCopy > p {
+    margin-bottom: 22px;
+    font-size: 18px;
+    line-height: 1.7;
+    letter-spacing: 0.04em;
+  }
+
+  /* メインタイトル */
+  .heroTitle {
+    margin: 0 auto 30px;
+    font-size: clamp(38px, 10.2vw, 48px);
+    line-height: 1.48;
+    letter-spacing: -0.035em;
+    word-break: keep-all;
+    overflow-wrap: normal;
+  }
+
+  .heroTitle span {
+    display: block;
+    white-space: nowrap;
+  }
+
+  /* サブコピー */
+  .heroCopy > span {
+    display: block;
+    max-width: 92%;
+    margin: 0 auto 22px;
+    font-size: 17px;
+    line-height: 1.65;
+    word-break: keep-all;
+  }
+
+  /* 来場特典ボタン */
+  .mainCta {
+    display: flex;
+    width: 100%;
+    min-height: 84px;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 26px;
+    font-size: 18px;
+    line-height: 1.55;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 999px;
+    box-sizing: border-box;
+  }
+
+  /* モデルハウス画像との間隔 */
+  .heroGrid {
+    margin-top: 44px;
+  }
+}
