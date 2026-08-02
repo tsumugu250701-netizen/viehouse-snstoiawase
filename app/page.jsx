@@ -1,17 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import {
-  Home,
-  Route,
-  Sun,
-  MessageCircle,
-  MapPin,
-  ChevronRight,
-  ChevronLeft,
-  Star,
-  Check,
-} from 'lucide-react';
+import { Home, Route, Sun, MessageCircle, MapPin, ChevronRight, ChevronLeft, Star, Check } from 'lucide-react';
 
 const images = {
   provenceHero: '/images/provence-hero.png',
@@ -150,11 +140,11 @@ function Header(){return <header className="header"><div className="container na
 function HeroPanel({type,title,text,img,theme}){return <article className={`heroPanel ${theme}`}><img src={img} alt={title}/><div className="heroShade"/><div className="heroPanelText"><p>{type}</p><h2>{title}</h2><span>{text}</span><a href="#reserve">モデルハウスを予約する <ChevronRight size={16}/></a></div></article>}
 function SectionTitle({eyebrow,title,text}){return <div className="sectionTitle"><p>{eyebrow}</p><h2>{title}</h2>{text&&<span>{text}</span>}</div>}
 function Gift(){return <section className="giftBlock"><div><p className="eyebrow">WEB予約限定</p><h2>5,000<span>円相当</span></h2><h3>選べる来場特典プレゼント！</h3><p>松阪牛・towerカタログギフト・スターバックスチケットからお選びいただけます。</p></div><div className="giftCards"><article><img src={images.giftBeef}/><b>松阪牛</b></article><article><img src={images.giftTower}/><b>tower<br/>カタログギフト</b></article><article><img src={images.giftStarbucks}/><b>スターバックス<br/>チケット</b></article></div></section>}
+
 function ReserveForm() {
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
-
-  const [formData, setFormData] = useState({
+  const [data, setData] = useState({
     name: '',
     furigana: '',
     email: '',
@@ -171,15 +161,12 @@ function ReserveForm() {
     privacy: false,
   });
 
-  const updateField = (field, value) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
+  const setField = (key, value) => {
+    setData((prev) => ({ ...prev, [key]: value }));
   };
 
   const toggleStatus = (value) => {
-    setFormData((prev) => ({
+    setData((prev) => ({
       ...prev,
       statuses: prev.statuses.includes(value)
         ? prev.statuses.filter((item) => item !== value)
@@ -187,57 +174,43 @@ function ReserveForm() {
     }));
   };
 
-  const validateStep = () => {
-    if (step === 1) {
-      if (
-        !formData.name ||
-        !formData.furigana ||
-        !formData.email ||
-        !formData.phone ||
-        !formData.address
-      ) {
-        alert('必須項目を入力してください。');
-        return false;
-      }
-    }
-
-    if (step === 2) {
-      if (!formData.requestType || !formData.timing) {
-        alert('必須項目を選択してください。');
-        return false;
-      }
-    }
-
-    if (step === 3) {
-      if (!formData.landStatus) {
-        alert('土地の状況を選択してください。');
-        return false;
-      }
-    }
-
-    return true;
+  const goTop = () => {
+    document.getElementById('reserve')?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
   };
 
-  const nextStep = () => {
-    if (!validateStep()) return;
+  const next = () => {
+    if (
+      step === 1 &&
+      (!data.name || !data.furigana || !data.email || !data.phone || !data.address)
+    ) {
+      alert('必須項目を入力してください。');
+      return;
+    }
+
+    if (step === 2 && (!data.requestType || !data.timing)) {
+      alert('必須項目を選択してください。');
+      return;
+    }
+
+    if (step === 3 && !data.landStatus) {
+      alert('土地の状況を選択してください。');
+      return;
+    }
 
     setStep((prev) => Math.min(prev + 1, 4));
-
-    document
-      .getElementById('reserve')
-      ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(goTop, 50);
   };
 
-  const prevStep = () => {
+  const back = () => {
     setStep((prev) => Math.max(prev - 1, 1));
-
-    document
-      .getElementById('reserve')
-      ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(goTop, 50);
   };
 
-  const handleSubmit = (event) => {
-    if (!formData.privacy) {
+  const submitForm = (event) => {
+    if (!data.privacy) {
       event.preventDefault();
       alert('個人情報の取り扱いに同意してください。');
       return;
@@ -245,64 +218,57 @@ function ReserveForm() {
 
     setTimeout(() => {
       setSubmitted(true);
-
-      document
-        .getElementById('reserve')
-        ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 800);
+      goTop();
+    }, 700);
   };
+
+  const choice = (field, value) => (
+    <label className={`vhChoice ${data[field] === value ? 'isSelected' : ''}`}>
+      <input
+        type="radio"
+        checked={data[field] === value}
+        onChange={() => setField(field, value)}
+      />
+      <span>{value}</span>
+    </label>
+  );
 
   if (submitted) {
     return (
-      <div className="formBox formComplete">
-        <div className="completeIcon">
-          <Check size={38} />
-        </div>
-
+      <div className="vhFormCard vhComplete">
+        <div className="vhCompleteIcon"><Check size={36} /></div>
         <p className="eyebrow">THANK YOU</p>
-
         <h2>お問い合わせありがとうございます</h2>
-
         <p>
-          ご入力いただいた内容を確認後、Viehouse担当者より
-          お電話またはメールにてご連絡いたします。
-        </p>
-
-        <p className="completeNote">
-          モデルハウス見学をご希望の場合は、担当者との日程調整後に
-          ご予約確定となります。
+          内容を確認後、Viehouse担当者よりお電話またはメールにてご連絡いたします。
         </p>
       </div>
     );
   }
 
   return (
-    <div className="formBox">
-      <p className="eyebrow">CONTACT</p>
+    <div className="vhFormCard">
+      <div className="vhFormIntro">
+        <p className="eyebrow">CONTACT</p>
+        <h2>モデルハウス見学・資料請求</h2>
+        <p>入力は約2分。4つのステップで簡単にお申し込みいただけます。</p>
+      </div>
 
-      <h2>モデルハウス見学・資料請求</h2>
-
-      <p className="formLead">
-        簡単な4ステップでお申し込みいただけます。
-        内容を確認後、担当者よりご連絡いたします。
-      </p>
-
-      <div className="stepProgress">
-        {[1, 2, 3, 4].map((number) => (
+      <div className="vhSteps">
+        {[
+          ['お客様情報', 1],
+          ['ご希望内容', 2],
+          ['家づくり', 3],
+          ['確認・送信', 4],
+        ].map(([label, number]) => (
           <div
             key={number}
-            className={`stepItem ${
-              step === number ? 'active' : ''
-            } ${step > number ? 'completed' : ''}`}
+            className={`vhStep ${step === number ? 'isCurrent' : ''} ${
+              step > number ? 'isDone' : ''
+            }`}
           >
-            <span>{step > number ? <Check size={16} /> : number}</span>
-
-            <small>
-              {number === 1 && 'お客様情報'}
-              {number === 2 && 'ご希望内容'}
-              {number === 3 && '家づくり'}
-              {number === 4 && '確認・送信'}
-            </small>
+            <span>{step > number ? <Check size={15} /> : number}</span>
+            <small>{label}</small>
           </div>
         ))}
       </div>
@@ -310,54 +276,24 @@ function ReserveForm() {
       <iframe
         name="google-form-submit"
         title="Googleフォーム送信用"
-        className="hiddenFormFrame"
+        className="vhHiddenFrame"
       />
 
       <form
-        className="stepForm"
+        className="vhStepForm"
         action="https://docs.google.com/forms/d/e/1FAIpQLSe24qMYgvsVbR4KcUKKwAGV7vjB8FiZIwJTZ0SYJfrSHur1JQ/formResponse"
         method="POST"
         target="google-form-submit"
-        onSubmit={handleSubmit}
+        onSubmit={submitForm}
       >
-        {/* Googleフォームへ送る非表示項目 */}
-        <input
-          type="hidden"
-          name="entry.1185507046"
-          value={formData.name}
-        />
-        <input
-          type="hidden"
-          name="entry.286628918"
-          value={formData.furigana}
-        />
-        <input
-          type="hidden"
-          name="entry.1453514585"
-          value={formData.email}
-        />
-        <input
-          type="hidden"
-          name="entry.1236133254"
-          value={formData.phone}
-        />
-        <input
-          type="hidden"
-          name="entry.1025760241"
-          value={formData.address}
-        />
-        <input
-          type="hidden"
-          name="entry.1685769336"
-          value={formData.requestType}
-        />
-        <input
-          type="hidden"
-          name="entry.627008439"
-          value={formData.timing}
-        />
-
-        {formData.statuses.map((status) => (
+        <input type="hidden" name="entry.1185507046" value={data.name} />
+        <input type="hidden" name="entry.286628918" value={data.furigana} />
+        <input type="hidden" name="entry.1453514585" value={data.email} />
+        <input type="hidden" name="entry.1236133254" value={data.phone} />
+        <input type="hidden" name="entry.1025760241" value={data.address} />
+        <input type="hidden" name="entry.1685769336" value={data.requestType} />
+        <input type="hidden" name="entry.627008439" value={data.timing} />
+        {data.statuses.map((status) => (
           <input
             key={status}
             type="hidden"
@@ -365,207 +301,122 @@ function ReserveForm() {
             value={status}
           />
         ))}
-
-        <input
-          type="hidden"
-          name="entry.135116182"
-          value={formData.area}
-        />
-        <input
-          type="hidden"
-          name="entry.1955319601"
-          value={formData.landStatus}
-        />
-        <input
-          type="hidden"
-          name="entry.780287589"
-          value={formData.budget}
-        />
-        <input
-          type="hidden"
-          name="entry.404848345"
-          value={formData.gift}
-        />
-        <input
-          type="hidden"
-          name="entry.2057376373"
-          value={formData.message}
-        />
+        <input type="hidden" name="entry.135116182" value={data.area} />
+        <input type="hidden" name="entry.1955319601" value={data.landStatus} />
+        <input type="hidden" name="entry.780287589" value={data.budget} />
+        <input type="hidden" name="entry.404848345" value={data.gift} />
+        <input type="hidden" name="entry.2057376373" value={data.message} />
 
         {step === 1 && (
-          <div className="formStep">
-            <div className="stepHeading">
+          <section className="vhPanel">
+            <div className="vhPanelHead">
               <span>STEP 01</span>
               <h3>お客様情報を入力してください</h3>
               <p>担当者からのご連絡に必要な情報です。</p>
             </div>
 
-            <div className="stepFields twoColumns">
-              <label>
-                <span>
-                  お名前 <b>必須</b>
-                </span>
+            <div className="vhFieldGrid">
+              <label className="vhField">
+                <span>お名前 <b>必須</b></span>
                 <input
                   type="text"
-                  value={formData.name}
-                  onChange={(e) =>
-                    updateField('name', e.target.value)
-                  }
+                  value={data.name}
+                  onChange={(e) => setField('name', e.target.value)}
                   placeholder="例）山田 太郎"
-                  autoComplete="name"
                 />
               </label>
 
-              <label>
-                <span>
-                  ふりがな <b>必須</b>
-                </span>
+              <label className="vhField">
+                <span>ふりがな <b>必須</b></span>
                 <input
                   type="text"
-                  value={formData.furigana}
-                  onChange={(e) =>
-                    updateField('furigana', e.target.value)
-                  }
+                  value={data.furigana}
+                  onChange={(e) => setField('furigana', e.target.value)}
                   placeholder="例）やまだ たろう"
                 />
               </label>
 
-              <label>
-                <span>
-                  メールアドレス <b>必須</b>
-                </span>
+              <label className="vhField">
+                <span>メールアドレス <b>必須</b></span>
                 <input
                   type="email"
-                  value={formData.email}
-                  onChange={(e) =>
-                    updateField('email', e.target.value)
-                  }
+                  value={data.email}
+                  onChange={(e) => setField('email', e.target.value)}
                   placeholder="例）example@gmail.com"
-                  autoComplete="email"
                 />
               </label>
 
-              <label>
-                <span>
-                  電話番号 <b>必須</b>
-                </span>
+              <label className="vhField">
+                <span>電話番号 <b>必須</b></span>
                 <input
                   type="tel"
-                  value={formData.phone}
-                  onChange={(e) =>
-                    updateField('phone', e.target.value)
-                  }
+                  value={data.phone}
+                  onChange={(e) => setField('phone', e.target.value)}
                   placeholder="例）090-1234-5678"
-                  autoComplete="tel"
                 />
               </label>
 
-              <label className="full">
-                <span>
-                  現在のお住まい <b>必須</b>
-                </span>
+              <label className="vhField vhFull">
+                <span>現在のお住まい <b>必須</b></span>
                 <small>市区町村までで結構です。</small>
                 <input
                   type="text"
-                  value={formData.address}
-                  onChange={(e) =>
-                    updateField('address', e.target.value)
-                  }
+                  value={data.address}
+                  onChange={(e) => setField('address', e.target.value)}
                   placeholder="例）埼玉県深谷市"
                 />
               </label>
             </div>
-          </div>
+          </section>
         )}
 
         {step === 2 && (
-          <div className="formStep">
-            <div className="stepHeading">
+          <section className="vhPanel">
+            <div className="vhPanelHead">
               <span>STEP 02</span>
               <h3>ご希望の内容を教えてください</h3>
               <p>現在決まっている範囲でお選びください。</p>
             </div>
 
-            <div className="questionBlock">
-              <h4>
-                ご希望の内容 <b>必須</b>
-              </h4>
-
-              <div className="selectCards">
+            <div className="vhQuestion">
+              <h4>ご希望の内容 <b>必須</b></h4>
+              <div className="vhChoices">
                 {[
                   'プロヴァンス見学',
                   'スマートハウス見学',
                   '２棟まとめて見学',
                   'まだ決めてない（資料請求のみ依頼したい）',
-                ].map((value) => (
-                  <label
-                    key={value}
-                    className={
-                      formData.requestType === value
-                        ? 'selected'
-                        : ''
-                    }
-                  >
-                    <input
-                      type="radio"
-                      checked={formData.requestType === value}
-                      onChange={() =>
-                        updateField('requestType', value)
-                      }
-                    />
-                    <span>{value}</span>
-                  </label>
-                ))}
+                ].map((value) => choice('requestType', value))}
               </div>
             </div>
 
-            <div className="questionBlock">
-              <h4>
-                家づくりのご予定時期 <b>必須</b>
-              </h4>
-
-              <div className="selectCards compact">
+            <div className="vhQuestion">
+              <h4>家づくりのご予定時期 <b>必須</b></h4>
+              <div className="vhChoices vhChoices3">
                 {[
                   '半年以内',
                   '1年以内',
                   '2年以内',
                   '3年以内',
                   'まだ決めていない',
-                ].map((value) => (
-                  <label
-                    key={value}
-                    className={
-                      formData.timing === value ? 'selected' : ''
-                    }
-                  >
-                    <input
-                      type="radio"
-                      checked={formData.timing === value}
-                      onChange={() =>
-                        updateField('timing', value)
-                      }
-                    />
-                    <span>{value}</span>
-                  </label>
-                ))}
+                ].map((value) => choice('timing', value))}
               </div>
             </div>
-          </div>
+          </section>
         )}
 
         {step === 3 && (
-          <div className="formStep">
-            <div className="stepHeading">
+          <section className="vhPanel">
+            <div className="vhPanelHead">
               <span>STEP 03</span>
               <h3>家づくりについて教えてください</h3>
               <p>未定の項目は空欄でも問題ありません。</p>
             </div>
 
-            <div className="questionBlock">
+            <div className="vhQuestion">
               <h4>現在の家づくり状況</h4>
               <p>当てはまるものをすべてお選びください。</p>
-
-              <div className="selectCards">
+              <div className="vhChoices">
                 {[
                   '情報収集中',
                   '土地を探している',
@@ -577,15 +428,13 @@ function ReserveForm() {
                 ].map((value) => (
                   <label
                     key={value}
-                    className={
-                      formData.statuses.includes(value)
-                        ? 'selected'
-                        : ''
-                    }
+                    className={`vhChoice ${
+                      data.statuses.includes(value) ? 'isSelected' : ''
+                    }`}
                   >
                     <input
                       type="checkbox"
-                      checked={formData.statuses.includes(value)}
+                      checked={data.statuses.includes(value)}
                       onChange={() => toggleStatus(value)}
                     />
                     <span>{value}</span>
@@ -594,195 +443,104 @@ function ReserveForm() {
               </div>
             </div>
 
-            <div className="stepFields">
-              <label>
-                <span>建築予定エリア</span>
-                <input
-                  type="text"
-                  value={formData.area}
-                  onChange={(e) =>
-                    updateField('area', e.target.value)
-                  }
-                  placeholder="例）深谷市、熊谷市、寄居町周辺"
-                />
-              </label>
-            </div>
+            <label className="vhField vhSingle">
+              <span>建築予定エリア</span>
+              <input
+                type="text"
+                value={data.area}
+                onChange={(e) => setField('area', e.target.value)}
+                placeholder="例）深谷市、熊谷市、寄居町周辺"
+              />
+            </label>
 
-            <div className="questionBlock">
-              <h4>
-                土地の状況 <b>必須</b>
-              </h4>
-
-              <div className="selectCards compact">
+            <div className="vhQuestion">
+              <h4>土地の状況 <b>必須</b></h4>
+              <div className="vhChoices vhChoices2">
                 {[
                   '土地を持っている',
                   '土地を探している',
                   '建て替えを検討している',
                   'まだ決めていない',
-                ].map((value) => (
-                  <label
-                    key={value}
-                    className={
-                      formData.landStatus === value
-                        ? 'selected'
-                        : ''
-                    }
-                  >
-                    <input
-                      type="radio"
-                      checked={formData.landStatus === value}
-                      onChange={() =>
-                        updateField('landStatus', value)
-                      }
-                    />
-                    <span>{value}</span>
-                  </label>
-                ))}
+                ].map((value) => choice('landStatus', value))}
               </div>
             </div>
 
-            <div className="questionBlock">
+            <div className="vhQuestion">
               <h4>建物・土地を含めた総予算</h4>
-
-              <div className="selectCards compact">
+              <div className="vhChoices vhChoices2">
                 {[
                   '3,000万円〜4,000万円',
                   '4,000万円〜5,000万円',
                   '5,000万円以上',
                   'まだ決めていない',
-                ].map((value) => (
-                  <label
-                    key={value}
-                    className={
-                      formData.budget === value ? 'selected' : ''
-                    }
-                  >
-                    <input
-                      type="radio"
-                      checked={formData.budget === value}
-                      onChange={() =>
-                        updateField('budget', value)
-                      }
-                    />
-                    <span>{value}</span>
-                  </label>
-                ))}
+                ].map((value) => choice('budget', value))}
               </div>
             </div>
-          </div>
+          </section>
         )}
 
         {step === 4 && (
-          <div className="formStep">
-            <div className="stepHeading">
+          <section className="vhPanel">
+            <div className="vhPanelHead">
               <span>STEP 04</span>
-              <h3>特典とご相談内容を入力してください</h3>
-              <p>入力内容を確認して送信してください。</p>
+              <h3>内容を確認して送信してください</h3>
+              <p>最後に来場特典とご相談内容をご入力ください。</p>
             </div>
 
-            <div className="questionBlock">
+            <div className="vhQuestion">
               <h4>来場特典のご希望</h4>
-
-              <div className="selectCards giftSelect">
+              <div className="vhChoices vhChoices3">
                 {[
                   '松阪牛',
                   'towerカタログギフト',
                   'スターバックスチケット',
-                ].map((value) => (
-                  <label
-                    key={value}
-                    className={
-                      formData.gift === value ? 'selected' : ''
-                    }
-                  >
-                    <input
-                      type="radio"
-                      checked={formData.gift === value}
-                      onChange={() => updateField('gift', value)}
-                    />
-                    <span>{value}</span>
-                  </label>
-                ))}
+                ].map((value) => choice('gift', value))}
               </div>
-
-              <p className="fieldNote">
-                ※来場特典には適用条件がございます。
-              </p>
             </div>
 
-            <div className="stepFields">
-              <label>
-                <span>ご質問・ご相談</span>
-                <textarea
-                  value={formData.message}
-                  onChange={(e) =>
-                    updateField('message', e.target.value)
-                  }
-                  placeholder="間取り、土地探し、住宅ローン、性能など、気になることをご記入ください。"
-                  rows={6}
-                />
-              </label>
+            <label className="vhField vhSingle">
+              <span>ご質問・ご相談</span>
+              <textarea
+                value={data.message}
+                onChange={(e) => setField('message', e.target.value)}
+                placeholder="間取り、土地探し、住宅ローン、性能など、気になることをご記入ください。"
+                rows={6}
+              />
+            </label>
+
+            <div className="vhSummary">
+              <div><span>お名前</span><strong>{data.name}</strong></div>
+              <div><span>ご希望</span><strong>{data.requestType}</strong></div>
+              <div><span>予定時期</span><strong>{data.timing}</strong></div>
+              <div><span>建築予定エリア</span><strong>{data.area || '未入力'}</strong></div>
             </div>
 
-            <div className="confirmSummary">
-              <h4>入力内容</h4>
-
-              <dl>
-                <div>
-                  <dt>お名前</dt>
-                  <dd>{formData.name}</dd>
-                </div>
-                <div>
-                  <dt>ご希望</dt>
-                  <dd>{formData.requestType}</dd>
-                </div>
-                <div>
-                  <dt>予定時期</dt>
-                  <dd>{formData.timing}</dd>
-                </div>
-                <div>
-                  <dt>建築予定エリア</dt>
-                  <dd>{formData.area || '未入力'}</dd>
-                </div>
-              </dl>
-            </div>
-
-            <label className="privacyCheck">
+            <label className="vhPrivacy">
               <input
                 type="checkbox"
-                checked={formData.privacy}
-                onChange={(e) =>
-                  updateField('privacy', e.target.checked)
-                }
+                checked={data.privacy}
+                onChange={(e) => setField('privacy', e.target.checked)}
               />
               <span>個人情報の取り扱いに同意します。</span>
             </label>
-          </div>
+          </section>
         )}
 
-        <div className="stepButtons">
+        <div className="vhActions">
           {step > 1 && (
-            <button
-              type="button"
-              className="backButton"
-              onClick={prevStep}
-            >
+            <button type="button" className="vhBack" onClick={back}>
               <ChevronLeft size={18} />
               戻る
             </button>
           )}
 
           {step < 4 ? (
-            <button
-              type="button"
-              className="nextButton"
-              onClick={nextStep}
-            >
+            <button type="button" className="vhNext" onClick={next}>
               次へ進む
               <ChevronRight size={18} />
             </button>
           ) : (
-            <button type="submit" className="submitButton">
+            <button type="submit" className="vhSubmit">
               この内容で送信する
               <ChevronRight size={18} />
             </button>
@@ -792,6 +550,7 @@ function ReserveForm() {
     </div>
   );
 }
+
 export default function Page(){return <><Header/><main>
   <section className="hero">
   <div className="heroCopy">
@@ -906,11 +665,10 @@ export default function Page(){return <><Header/><main>
   </details>
 </section>
 
-<section className="container reserve" id="reserve">
-  <Gift />
-  <ReserveForm />
-</section>
+  <section className="container reserve" id="reserve">
+    <Gift />
+    <ReserveForm />
+  </section>
 
   <section className="bottom"><div className="container bottomInner"><h2>写真では伝わらない心地よさがあります。<br/>まずはモデルハウスでご体感ください。</h2><div><a className="goldBtn" href="#reserve">プロヴァンスを見学予約する</a><a className="blueBtn" href="#reserve">スマートハウスを見学予約する</a></div><aside><p>お電話でのご予約・お問い合わせはこちら</p><strong>048-584-7779</strong><span>受付時間 / 9:00〜19:00　定休日 / 不定期</span></aside></div></section>
 </main><footer><div className="container footer"><div className="logo">Viehouse</div><nav><a>モデルハウス</a><a>YouTube</a><a>お客様の声</a><a>家づくりのこだわり</a><a>会社案内</a></nav><a className="outline" href="#reserve">来場予約はこちら</a></div></footer></>}
-
