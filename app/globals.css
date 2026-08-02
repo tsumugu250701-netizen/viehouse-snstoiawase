@@ -1110,3 +1110,16 @@ height:220px;
     order: 2;
   }
 }
+.reserve {
+  display: block !important;
+}
+
+.reserve .giftBlock {
+  width: 100% !important;
+  margin-bottom: 30px;
+  position: static;
+}
+
+.reserve .vhFormCard {
+  width: 100%;
+}
