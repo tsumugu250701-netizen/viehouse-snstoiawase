@@ -59,9 +59,10 @@ export default function CompanyPage() {
           <div className="container">
             <p className="eyebrow">COMPANY</p>
             <h1>会社案内</h1>
-            <p>
-              何十年経っても、この家でよかったと思える住まいを。
-            </p>
+           <p>
+  何十年経っても、<br />
+  この家でよかったと思える住まいを。
+</p>
           </div>
         </section>
 
