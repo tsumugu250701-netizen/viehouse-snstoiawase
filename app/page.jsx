@@ -559,7 +559,6 @@ const submitForm = async (event) => {
 
 export default function Page(){return <><Header/><main>
  <div className="heroCopy">
-
   <p>見るだけで、家づくりが楽しくなる。</p>
 
   <h1 className="heroTitle">
@@ -575,7 +574,6 @@ export default function Page(){return <><Header/><main>
   <a href="#reserve" className="mainCta">
     WEB予約限定・選べる5,000円相当の来場特典をご用意
   </a>
-
 </div>
 
   <div className="heroGrid">
