@@ -677,4 +677,29 @@ export default function Page(){return <><Header/><main>
   </section>
 
   <section className="bottom"><div className="container bottomInner"><h2>写真では伝わらない心地よさがあります。<br/>まずはモデルハウスでご体感ください。</h2><div><a className="goldBtn" href="#reserve">プロヴァンスを見学予約する</a><a className="blueBtn" href="#reserve">スマートハウスを見学予約する</a></div><aside><p>お電話でのご予約・お問い合わせはこちら</p><strong>048-584-7779</strong><span>受付時間 / 9:00〜19:00　定休日 / 不定期</span></aside></div></section>
-</main><footer><div className="container footer"><div className="logo">Viehouse</div><nav><a>モデルハウス</a><a>YouTube</a><a>お客様の声</a><a>家づくりのこだわり</a><a>会社案内</a></nav><a className="outline" href="#reserve">来場予約はこちら</a></div></footer></>}
+</main>
+
+<footer>
+  <div className="container footer">
+
+    <a className="logo" href="/#top">
+      Viehouse
+    </a>
+
+    <nav>
+      <a href="/#top">モデルハウス</a>
+      <a href="/#youtube">YouTube</a>
+      <a href="/#voice">お客様の声</a>
+      <a href="/#model">家づくりのこだわり</a>
+      <a href="/company">会社案内</a>
+    </nav>
+
+    <a className="outline" href="/#reserve">
+      来場予約はこちら
+    </a>
+
+  </div>
+</footer>
+
+</>
+}
