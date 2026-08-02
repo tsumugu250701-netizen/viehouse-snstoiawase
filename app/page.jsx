@@ -586,8 +586,8 @@ export default function Page() {
 
 <p className="heroSub">
   プロヴァンスとスマートハウス
-  <br />
-  2棟モデルハウス見学受付中
+  <br className="spOnly" />
+  の2棟モデルハウス見学受付中
 </p>
 
   <a href="#reserve" className="mainCta">
