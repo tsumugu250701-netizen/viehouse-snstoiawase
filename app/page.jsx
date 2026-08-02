@@ -136,7 +136,24 @@ function VoiceCard({ item }) {
 }
 
 
-function Header(){return <header className="header"><div className="container nav"><div className="logo">Viehouse</div><nav><a href="#model">モデルハウス</a><a href="#youtube">YouTube</a><a href="#voice">お客様の声</a><a href="#faq">FAQ</a></nav><a className="navCta" href="#reserve">来場予約する</a></div></header>}
+function Header() {
+  return (
+    <header className="header">
+      <div className="container nav">
+        <a className="logo" href="/#top">Viehouse</a>
+        <nav>
+          <a href="/#top">モデルハウス</a>
+          <a href="/#youtube">YouTube</a>
+          <a href="/#voice">お客様の声</a>
+          <a href="/#model">家づくりのこだわり</a>
+          <a href="/company">会社案内</a>
+        </nav>
+        <a className="navCta" href="/#reserve">来場予約する</a>
+      </div>
+    </header>
+  );
+}
+
 function HeroPanel({type,title,text,img,theme}){return <article className={`heroPanel ${theme}`}><img src={img} alt={title}/><div className="heroShade"/><div className="heroPanelText"><p>{type}</p><h2>{title}</h2><span>{text}</span><a href="#reserve">モデルハウスを予約する <ChevronRight size={16}/></a></div></article>}
 function SectionTitle({eyebrow,title,text}){return <div className="sectionTitle"><p>{eyebrow}</p><h2>{title}</h2>{text&&<span>{text}</span>}</div>}
 function Gift(){return <section className="giftBlock"><div><p className="eyebrow">WEB予約限定</p><h2>5,000<span>円相当</span></h2><h3>選べる来場特典プレゼント！</h3><p>松阪牛・towerカタログギフト・スターバックスチケットからお選びいただけます。</p></div><div className="giftCards"><article><img src={images.giftBeef}/><b>松阪牛</b></article><article><img src={images.giftTower}/><b>tower<br/>カタログギフト</b></article><article><img src={images.giftStarbucks}/><b>スターバックス<br/>チケット</b></article></div></section>}
@@ -174,13 +191,6 @@ function ReserveForm() {
     }));
   };
 
-  const goTop = () => {
-    document.getElementById('reserve')?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    });
-  };
-
   const next = () => {
     if (
       step === 1 &&
@@ -200,14 +210,14 @@ function ReserveForm() {
       return;
     }
 
-setStep((prev) => Math.min(prev + 1, 4));
+    setStep((prev) => Math.min(prev + 1, 4));
   };
 
-const back = () => {
-  setStep((prev) => Math.max(prev - 1, 1));
-};
+  const back = () => {
+    setStep((prev) => Math.max(prev - 1, 1));
+  };
 
-const submitForm = async (event) => {
+  const submitForm = async (event) => {
   event.preventDefault();
 
   if (!data.privacy) {
@@ -259,7 +269,10 @@ const submitForm = async (event) => {
 };
 
   const choice = (field, value) => (
-    <label className={`vhChoice ${data[field] === value ? 'isSelected' : ''}`}>
+    <label
+      key={value}
+      className={`vhChoice ${data[field] === value ? 'isSelected' : ''}`}
+    >
       <input
         type="radio"
         checked={data[field] === value}
@@ -557,8 +570,13 @@ const submitForm = async (event) => {
   );
 }
 
-export default function Page(){return <><Header/><main>
- <div className="heroCopy">
+export default function Page() {
+  return (
+    <>
+      <Header />
+      <main>
+        <section className="hero" id="top">
+          <div className="heroCopy">
   <p>見るだけで、家づくりが楽しくなる。</p>
 
   <h1 className="heroTitle">
@@ -682,27 +700,19 @@ export default function Page(){return <><Header/><main>
   <section className="bottom"><div className="container bottomInner"><h2>写真では伝わらない心地よさがあります。<br/>まずはモデルハウスでご体感ください。</h2><div><a className="goldBtn" href="#reserve">プロヴァンスを見学予約する</a><a className="blueBtn" href="#reserve">スマートハウスを見学予約する</a></div><aside><p>お電話でのご予約・お問い合わせはこちら</p><strong>048-584-7779</strong><span>受付時間 / 9:00〜19:00　定休日 / 不定期</span></aside></div></section>
 </main>
 
-<footer>
-  <div className="container footer">
-
-    <a className="logo" href="/#top">
-      Viehouse
-    </a>
-
-    <nav>
-      <a href="/#top">モデルハウス</a>
-      <a href="/#youtube">YouTube</a>
-      <a href="/#voice">お客様の声</a>
-      <a href="/#model">家づくりのこだわり</a>
-      <a href="/company">会社案内</a>
-    </nav>
-
-    <a className="outline" href="/#reserve">
-      来場予約はこちら
-    </a>
-
-  </div>
-</footer>
-
-</>
+      <footer>
+        <div className="container footer">
+          <a className="logo" href="/#top">Viehouse</a>
+          <nav>
+            <a href="/#top">モデルハウス</a>
+            <a href="/#youtube">YouTube</a>
+            <a href="/#voice">お客様の声</a>
+            <a href="/#model">家づくりのこだわり</a>
+            <a href="/company">会社案内</a>
+          </nav>
+          <a className="outline" href="/#reserve">来場予約はこちら</a>
+        </div>
+      </footer>
+    </>
+  );
 }
