@@ -54,12 +54,12 @@ const youtubeItems = [
     '/images/youtube-smart.jpg',
     'https://youtu.be/Tr4HoUN_Kdw?si=40-3oxzaaujodDpf',
   ],
-  [
-    '家づくりで後悔しないために',
-    '失敗しない住宅会社選びのポイントをお伝えします',
-    '/images/youtube-plan.jpg',
-    'https://youtu.be/ieevSo5tTWU?si=fAMczI4BRsLV2vxz',
-  ],
+ [
+  '家づくりで後悔しないために',
+  '35年以上家づくりに携わる職人社長が本音で解説',
+  '/images/youtube-plan.jpg',
+  'https://youtu.be/ieevSo5tTWU?si=fAMczI4BRsLV2vxz',
+],
 ];
 
 const voiceItems = [
