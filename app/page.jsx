@@ -590,9 +590,10 @@ export default function Page() {
   の2棟モデルハウス見学受付中
 </p>
 
-  <a href="#reserve" className="mainCta">
-    WEB予約限定・選べる5,000円相当の来場特典をご用意
-  </a>
+<a href="#reserve" className="mainCta">
+  <span>WEB予約限定・選べる5,000円相当</span>
+  <span>来場特典をご用意</span>
+</a>
 </div>
 
   <div className="heroGrid">
