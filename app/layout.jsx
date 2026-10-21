@@ -9,7 +9,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="ja">
-      <body>{children}<Analytics /></body>
+      <body>{children}{process.env.VERCEL_ENV === 'production' && <Analytics />}</body>
     </html>
   );
 }
