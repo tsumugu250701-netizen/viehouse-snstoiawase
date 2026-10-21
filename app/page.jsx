@@ -282,10 +282,10 @@ function ReserveForm({ selectedRequest }) {
     <div className="vhFormCard vhComplete" ref={panel} role="status">
       <div className="vhCompleteIcon"><Check size={36} /></div>
       <p className="eyebrow">THANK YOU</p>
-      <h2>送信操作が完了しました</h2>
+      <h2>お問い合わせありがとうございます</h2>
       <p>ご希望日時は、担当者との調整後に確定となります。</p>
-      <p>Googleフォームの受理状況はこの画面では確認できません。<br />
-        担当者からの連絡がない場合は、お電話でお問い合わせください。</p>
+      <p>担当者より、お電話またはメールでご連絡します。<br />
+        連絡がない場合は、お手数ですがお電話でお問い合わせください。</p>
       <a className="outline" href="tel:0485847779">048-584-7779</a>
     </div>
   );
@@ -316,6 +316,7 @@ function ReserveForm({ selectedRequest }) {
               <div className="vhFieldGrid">
                 <label className="vhField"><span>希望日</span>
                   <input name="preferredDate" type="date" min={today} value={data.preferredDate}
+                    onInput={e => setField('preferredDate', e.currentTarget.value)}
                     onChange={e => setField('preferredDate', e.target.value)} />
                 </label>
                 <label className="vhField"><span>希望時間帯</span>
