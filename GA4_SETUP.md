@@ -17,7 +17,7 @@ app/layout.jsxはVERCEL_ENVがproductionのときだけAnalyticsを表示する�
 | reservation_click | 予約CTAクリック。cta_location で配置を識別 |
 | reservation_form_view | フォーム表示 |
 | reservation_form_start | 初回の入力変更（フォーカスのみでは発火しない） |
-| reservation_step_complete | 入力チェック通過。step_number は1〜3 |
+| reservation_step_complete | 入力チェック通過。step_number は1（2段階フォームの第1段階） |
 | reservation_submit_attempt | 同意後の送信試行 |
 | reservation_submit_unverified | Googleフォームへのno-cors送信が戻った状態。受理確認ではない |
 | reservation_submit_error | 通信エラー |
