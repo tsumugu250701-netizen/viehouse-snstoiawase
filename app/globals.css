@@ -2076,3 +2076,55 @@ tbody th {
     font-size: clamp(14px, 4vw, 18px);
   }
 }
+
+/* Reservation clarity and conversion improvements */
+.heroTitle { font-size: clamp(25px, 3.5vw, 46px); }
+.heroCopy .heroReassurance { margin: 18px 0 0; font-size: 14px; color: var(--muted); line-height: 1.9; letter-spacing: .04em; }
+.mainCta > span:last-child { display:flex; align-items:center; justify-content:center; gap:8px; }
+.visitGuide { padding: 52px 36px; margin: 64px auto; background: var(--paper); border: 1px solid var(--line); border-radius: 16px; text-align:center; }
+.visitGuide h2 { margin: 0 0 30px; font-size:clamp(23px,3vw,32px); }
+.visitGuideGrid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:26px; text-align:left; }
+.visitGuideGrid article > span { color:var(--gold); font-size:24px; }
+.visitGuideGrid h3 { font-size:19px; margin:10px 0; }
+.visitGuideGrid p, .visitPractical { color:var(--muted); font-size:15px; }
+.visitPractical { margin:28px 0; padding:20px; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+.conversionSteps { grid-template-columns:repeat(2,minmax(0,1fr)); max-width:500px; margin:28px auto; }
+.vhFormCard { scroll-margin-top:90px; }
+.vhField select { width:100%; min-width:0; padding:13px 12px; border:1px solid #d9cbb8; border-radius:8px; background:#fff; color:var(--ink); font-size:16px; }
+.vhField input, .vhField textarea { min-width:0; font-size:16px; }
+.vhFieldGrid > *, .vhSummary strong { min-width:0; overflow-wrap:anywhere; }
+.vhField:has([name="address"]) { grid-column:1/-1; }
+.vhQuestion h3 { font-size:21px; margin:0 0 18px; }
+.visitPreference { background:#faf6ef; padding:20px; border-radius:10px; margin:24px 0; }
+.visitPreference h4 { margin:0 0 12px; }
+.visitPreference p, .formHint { color:var(--muted); font-size:13px; line-height:1.8; }
+.visitPreference small, .optionalQuestions small, .vhQuestion h4 small { color:var(--muted); font-size:12px; font-weight:normal; }
+.contactSubheading { margin:28px 0 0; font-size:21px; }
+.formHint { margin:10px 0 20px; }
+.optionalQuestions { margin:24px 0; padding:18px; border:1px solid var(--line); border-radius:10px; }
+.optionalQuestions summary { cursor:pointer; font-weight:600; }
+.optionalQuestions[open] summary { margin-bottom:22px; }
+.optionalQuestions .vhField { margin-top:20px; }
+.formError { padding:14px; background:#fff0ed; border:1px solid #ba5040; color:#8d281d; border-radius:8px; }
+.vhActions button:disabled { cursor:wait; opacity:.65; }
+.vhSteps .vhStep:not(.isCurrent):not(.isDone) > span { background:#f3eadf; color:var(--muted); }
+.mobileReserve { display:none; }
+a:focus-visible, button:focus-visible, select:focus-visible, summary:focus-visible { outline:3px solid #315f83; outline-offset:4px; }
+@media (max-width: 768px) {
+ .visitGuide { padding:30px 20px; margin:38px auto; }
+ .visitGuideGrid { grid-template-columns:1fr; gap:18px; }
+ .visitGuideGrid article { border-bottom:1px solid var(--line); padding-bottom:16px; }
+ .visitGuideGrid article:last-child { border-bottom:0; }
+ .mobileReserve { position:fixed; left:0; right:0; bottom:0; display:grid; grid-template-columns:1fr 2fr; gap:8px; padding:10px 14px calc(10px + env(safe-area-inset-bottom)); background:rgba(255,253,248,.98); box-shadow:0 -3px 18px #422b1d18; z-index:100; }
+ .mobileReserve a { display:flex; align-items:center; justify-content:center; gap:6px; min-height:48px; border:1px solid var(--gold); border-radius:8px; font-size:14px; }
+ .mobileReserve a:last-child { background:var(--brown); color:white; border-color:var(--brown); font-weight:bold; }
+ body { padding-bottom:88px; }
+ .vhActions { flex-wrap:wrap; }
+ .vhActions button { min-height:50px; }
+ .heroCopy .heroReassurance { font-size:12px; }
+ .heroTitle span { white-space:normal; }
+ .compare table { table-layout:fixed; width:100%; }
+ .compare th, .compare td { padding:12px 8px; overflow-wrap:anywhere; }
+ .compare th:first-child { width:24%; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } }
