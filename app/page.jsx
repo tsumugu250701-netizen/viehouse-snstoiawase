@@ -1,7 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Home, Route, Sun, MessageCircle, MapPin, ChevronRight, ChevronLeft, Star, Check } from 'lucide-react';
+
+import { trackEvent } from './analytics';
 
 const images = {
   provenceHero: '/images/provence-hero.png',
@@ -160,6 +162,15 @@ function Gift(){return <section className="giftBlock"><div><p className="eyebrow
 
 function ReserveForm() {
   const [step, setStep] = useState(1);
+  const started = useRef(false);
+  const sending = useRef(false);
+  const [isSending, setIsSending] = useState(false);
+  const startTracking = () => {
+    if (!started.current) {
+      started.current = true;
+      trackEvent('reservation_form_start');
+    }
+  };
   const [submitted, setSubmitted] = useState(false);
   const [data, setData] = useState({
     name: '',
@@ -210,6 +221,7 @@ function ReserveForm() {
       return;
     }
 
+    trackEvent('reservation_step_complete', { step_number: step });
     setStep((prev) => Math.min(prev + 1, 4));
   };
 
@@ -219,12 +231,16 @@ function ReserveForm() {
 
   const submitForm = async (event) => {
   event.preventDefault();
+  if (sending.current) return;
 
   if (!data.privacy) {
     alert('個人情報の取り扱いに同意してください。');
     return;
   }
 
+  sending.current = true;
+  setIsSending(true);
+  trackEvent('reservation_submit_attempt');
   const formBody = new URLSearchParams();
 
   formBody.append('entry.1185507046', data.name);
@@ -258,13 +274,19 @@ function ReserveForm() {
       }
     );
 
+    // no-cors returns an opaque response; this is NOT verified receipt.
+    trackEvent('reservation_submit_unverified');
     setSubmitted(true);
   } catch (error) {
+    trackEvent('reservation_submit_error');
     console.error('Googleフォーム送信エラー:', error);
 
     alert(
       '送信に失敗しました。通信環境をご確認のうえ、もう一度お試しください。'
     );
+  } finally {
+    sending.current = false;
+    setIsSending(false);
   }
 };
 
@@ -325,6 +347,7 @@ function ReserveForm() {
  <form
   className="vhStepForm"
   onSubmit={submitForm}
+  onChange={startTracking}
 >
         {step === 1 && (
           <section className="vhPanel">
@@ -559,8 +582,8 @@ function ReserveForm() {
               <ChevronRight size={18} />
             </button>
           ) : (
-            <button type="submit" className="vhSubmit">
-              この内容で送信する
+            <button type="submit" className="vhSubmit" disabled={isSending}>
+              {isSending ? '送信中…' : 'この内容で送信する'}
               <ChevronRight size={18} />
             </button>
           )}
