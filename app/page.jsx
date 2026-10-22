@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Home, Route, Sun, MessageCircle, MapPin, ChevronRight, ChevronLeft, Star, Check } from 'lucide-react';
+import { ChevronRight, ChevronLeft, Check } from 'lucide-react';
 
 import { trackEvent } from './analytics';
 
@@ -16,32 +16,6 @@ const images = {
   giftStarbucks: '/images/gift-starbucks.png',
   president: '/images/president.jpg',
 };
-
-const benefits = [
-  [Home, '建物のデザインや\n素材を体感できる'],
-  [Route, '間取りや動線を\n実際に確認できる'],
-  [Sun, '光熱費や性能の\n仕組みがわかる'],
-  [MessageCircle, '家づくりの進め方を\n相談できる'],
-  [MapPin, '土地探しのことも\n相談できる'],
-];
-
-const comparison = [
-  ['デザイン性', '南仏風のデザイン', 'シンプルモダン'],
-  ['自然素材', '漆喰・無垢材など', '一部自然素材'],
-  ['見学での注目点', '漆喰・無垢材の質感', '太陽光・蓄電池の仕組み'],
-  ['暮らしの楽しみ', '素材とともに歳を重ねる', '電気をつくり、ためて使う'],
-  ['相談したいこと', '素材やパーツの選び方', '設備と光熱費の考え方'],
-  ['現地で確かめる', '光の入り方・素材の肌触り', '住み心地・設備の使い方'],
-];
-
-const faqs = [
-  'まだ建てるか決めていなくても見学できますか？',
-  '子ども連れでも見学できますか？',
-  '土地を探している段階でも相談できますか？',
-  '両方のモデルハウスを見学できますか？',
-  '営業されませんか？',
-  '見学の所要時間はどれくらいですか？',
-];
 
 const youtubeItems = [
   [
@@ -63,102 +37,6 @@ const youtubeItems = [
   'https://youtu.be/ieevSo5tTWU?si=fAMczI4BRsLV2vxz',
 ],
 ];
-
-const voiceItems = [
-  [
-    'モデルハウスを見て「ここに住みたい」と思えました。',
-    'プロヴァンス / 埼玉県 H様',
-    'モデルハウスで体感した漆喰や無垢材の心地よさが決め手でした。完成した今も毎日帰るのが楽しみです。',
-    '/images/voice1.jpg'
-  ],
-  [
-    '電気代を気にしない暮らしが実現しました。',
-    'スマートハウス / 埼玉県 M様',
-    '太陽光と蓄電池のおかげで安心感があり、電気代を気にせず快適に暮らせています。',
-    '/images/voice2.jpg'
-  ],
-  [
-    '自然素材の温もりに毎日癒されています。',
-    'プロヴァンス / 埼玉県 I様',
-    '無垢材や漆喰の優しい空間と、家族が自然と集まる間取りがお気に入りです。',
-    '/images/voice3.jpg'
-  ],
-];
-
-function YoutubeCard({ item }) {
-  return (
-    <a
-      className="youtubeCard"
-      href={item[3]}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <div className="youtubeImage">
-        <img src={item[2]} alt={item[0]} loading="lazy" />
-        <span>▶</span>
-      </div>
-
-      <h3>{item[0]}</h3>
-      <p>{item[1]}</p>
-    </a>
-  );
-}
-function VoiceCard({ item }) {
-  return (
-    <article className="voiceCard">
-
-      <div className="voiceImage">
-        <img src={item[3]} alt={item[0]} loading="lazy" />
-      </div>
-
-      <div className="voiceContent">
-
-        <div className="stars">
-          <Star />
-          <Star />
-          <Star />
-          <Star />
-          <Star />
-        </div>
-
-        <h3>{item[0]}</h3>
-
-        <p className="voiceMeta">
-          {item[1]}
-        </p>
-
-        <p className="voiceText">
-          {item[2]}
-        </p>
-
-      </div>
-
-    </article>
-  );
-}
-
-
-function Header() {
-  return (
-    <header className="header">
-      <div className="container nav">
-        <a className="logo" href="/#top">Viehouse</a>
-        <nav>
-          <a href="/#top">モデルハウス</a>
-          <a href="/#youtube">YouTube</a>
-          <a href="/#voice">お客様の声</a>
-          <a href="/#model">家づくりのこだわり</a>
-          <a href="/company">会社案内</a>
-        </nav>
-        <a className="navCta" href="/#reserve">来場予約する</a>
-      </div>
-    </header>
-  );
-}
-
-function HeroPanel({type,title,text,img,theme}){return <article className={`heroPanel ${theme}`}><img src={img} alt={title}/><div className="heroShade"/><div className="heroPanelText"><p>{type}</p><h2>{title}</h2><span>{text}</span><a href="#reserve" data-request={title === "プロヴァンス" ? "プロヴァンス見学" : "スマートハウス見学"}>この住まいを見学する <ChevronRight size={16}/></a></div></article>}
-function SectionTitle({eyebrow,title,text}){return <div className="sectionTitle"><p>{eyebrow}</p><h2>{title}</h2>{text&&<span>{text}</span>}</div>}
-function Gift(){return <section className="giftBlock"><div><p className="eyebrow">WEB予約限定</p><h2>5,000<span>円相当</span></h2><h3>選べる来場特典プレゼント！</h3><p>松阪牛・towerカタログギフト・スターバックスチケットからお選びいただけます。</p><p className="formHint">※ご来場特典は、Viehouseへ初めてご来場いただく方限定です。</p></div><div className="giftCards"><article><img src={images.giftBeef} alt="松阪牛の来場特典イメージ" loading="lazy"/><b>松阪牛</b></article><article><img src={images.giftTower} alt="towerカタログギフトのイメージ" loading="lazy"/><b>tower<br/>カタログギフト</b></article><article><img src={images.giftStarbucks} alt="スターバックスチケットのイメージ" loading="lazy"/><b>スターバックス<br/>チケット</b></article></div></section>}
 
 const requestOptions = [
   'プロヴァンス見学', 'スマートハウス見学', '２棟まとめて見学',
@@ -295,8 +173,8 @@ function ReserveForm({ selectedRequest }) {
     <div className="vhFormCard" ref={panel}>
       <div className="vhFormIntro">
         <p className="eyebrow">RESERVATION</p>
-        <h2>見学のご希望をお聞かせください</h2>
-        <p>情報収集の段階でも、お子様連れでも。<br />見学先を迷っている方は、2棟まとめてご相談いただけます。</p>
+        <h2>見学のお申し込み</h2>
+        <p>入力は2ステップ。資料請求のみも承ります。</p>
       </div>
       <div className="vhSteps conversionSteps" aria-label={'全2ステップ中の' + step + 'ステップ目'}>
         {[['ご希望・ご連絡先', 1], ['確認・送信', 2]].map(([label, number]) => (
@@ -412,164 +290,35 @@ export default function Page() {
     const link = event.target instanceof Element ? event.target.closest('a[data-request]') : null;
     if (link) setSelectedRequest({ value: link.dataset.request, nonce: Date.now() });
   };
-  return (
-    <div onClickCapture={selectFromCta}>
-      <Header />
-      <main>
-        <section className="hero" id="top">
-          <div className="heroCopy">
-  <p>埼玉で、自分たちらしい家づくりを。</p>
-
-  <h1 className="heroTitle">
-  <span>好きな雰囲気も、暮らしやすさも。</span>
-  <span>2つの住まいで確かめよう。</span>
-</h1>
-
-<p className="heroSub">
-  プロヴァンスとスマートハウス
-  <br className="spOnly" />
-  のモデルハウスを比較見学。<br />写真では分からない素材の質感や、間取りの広がりを体感できます。
-</p>
-
-<a href="#reserve" className="mainCta">
-  <span>情報収集の段階でもお気軽に</span>
-  <span>見学を申し込む <ChevronRight size={18} /></span>
-</a>
-<p className="heroReassurance">お子様連れOK ／ 見学目安60〜90分<br />WEB予約限定・選べる5,000円相当の来場特典</p>
-<p className="formHint">※ご来場特典は、Viehouseへ初めてご来場いただく方限定です。</p>
-</div>
-
-  <div className="heroGrid">
-    <HeroPanel
-      theme="gold"
-      type="PROVENCE"
-      title="プロヴァンス"
-      text="南仏のやさしい時間が流れる、自然素材の心地よい暮らし。"
-      img={images.provenceHero}
-    />
-
-    <HeroPanel
-      theme="blue"
-      type="SMARTHOUSE"
-      title="スマートハウス"
-      text="電気を自給自足する、未来の暮らしを体感できる住まい。"
-      img={images.smartHero}
-    />
-
-    <div className="centerBadge">
-      <strong>
-        2棟同時<br />見学OK
-      </strong>
-      <small>比較できます</small>
-    </div>
-  </div>
-</section>
-
-  <section className="container benefits"><h2>モデルハウス見学でできること</h2><div>{benefits.map(([Icon,t])=><article key={t}><Icon size={35}/><p>{t}</p></article>)}</div></section>
-
-  <section className="container" id="model"><SectionTitle eyebrow="MODEL HOUSE" title="それぞれのモデルハウスの特徴"/><div className="modelGrid"><article className="modelCard"><div><p className="eyebrow">PROVENCE</p><h3>プロヴァンス</h3><ul><li>漆喰の塗り壁</li><li>無垢材の床・建具</li><li>海外から取り寄せたパーツ</li><li>経年変化を楽しむデザイン</li><li>自然素材の心地よい空間</li></ul></div><img src={images.provenceMain} alt="プロヴァンスの外観" loading="lazy"/></article><article className="modelCard smart"><div><p className="eyebrow">SMARTHOUSE</p><h3>スマートハウス</h3><ul><li>太陽光発電システム</li><li>大容量蓄電池</li><li>高断熱・高気密</li><li>電気をつくり、ためて使う暮らし</li><li>停電への備えも相談できる</li></ul></div><img src={images.smartMain} alt="スマートハウスの外観" loading="lazy"/></article></div><div className="doubleCta"><Home size={34}/><p>どちらか迷っている方は、<br/>2棟まとめて見学できます。</p><a href="#reserve" data-request="２棟まとめて見学">2棟まとめて見学を申し込む <ChevronRight size={16}/></a></div></section>
-
-  <section className="container compare"><h2>あなたが確かめたいのは、どんな暮らし？</h2><table><thead><tr><th scope="col">比較ポイント</th><th scope="col">プロヴァンス</th><th scope="col">スマートハウス</th></tr></thead><tbody>{comparison.map(r=><tr key={r[0]}><th scope="row">{r[0]}</th><td>{r[1]}</td><td>{r[2]}</td></tr>)}</tbody></table></section>
-
-  <section className="container visitGuide" aria-labelledby="visit-guide-title">
-    <p className="eyebrow">YOUR VISIT</p><h2 id="visit-guide-title">見学を、家づくりの最初の一歩に。</h2>
-    <div className="visitGuideGrid">
-      <article><span>01</span><h3>素材の心地よさを確かめる</h3><p>写真で気になった漆喰や無垢材。質感や光の入り方を、実際の空間で体感してください。</p></article>
-      <article><span>02</span><h3>家族の動きをイメージする</h3><p>キッチンからの見え方、部屋の広さ、日々の動線。自分たちの暮らしに重ねて比べられます。</p></article>
-      <article><span>03</span><h3>予算も土地も、まとめて相談</h3><p>「何から始めればいい？」「予算はどのくらい？」。まだ決まっていないこともご相談ください。</p></article>
-    </div>
-    <div className="visitPractical"><p><strong>見学目安：60〜90分</strong><br />短時間での見学もご相談ください。お子様連れでもご見学いただけます。</p><p>ご希望を送信 → 担当者と日時を調整 → ご見学<br /><small>見学場所の詳細は、ご希望のモデルハウスに合わせてご案内します。</small></p></div>
-    <a className="outline" href="#reserve">見学の希望を相談する <ChevronRight size={16} /></a>
-  </section>
-
-  <section className="container youtubeSection" id="youtube"><SectionTitle eyebrow="YOUTUBE" title="YouTubeで家づくりをもっと身近に" text="ルームツアーや家づくりのコツを動画で確認できます。"/><div className="youtubeGrid">{youtubeItems.map(item=><YoutubeCard key={item[0]} item={item}/>)}</div><div className="center"><a className="outline" href="https://www.youtube.com/@viehouse" target="_blank">Viehouse公式YouTubeチャンネルへ</a></div></section>
-
-  <section className="container voiceSection" id="voice"><SectionTitle eyebrow="OWNER'S VOICE" title="お客様の声" text="実際にViehouseで建てられたお客様の声をご紹介します。"/><div className="voiceGrid">{voiceItems.map(item=><VoiceCard key={item[0]} item={item}/>)}</div></section>
-
-  <section className="container message"><img src={images.president} alt="Viehouse代表 福島徹" loading="lazy"/><div><p className="eyebrow">MESSAGE</p><h2>代表からのメッセージ</h2><p>20年前まで、私も日本の家は世界最高水準だと思っていました。
-
-しかし海外を訪れたとき、100年以上大切に住み継がれる家と、その家を誇りに思う人々の暮らしに出会いました。
-
-住まいには、建てた後の暮らしまで見据えた家づくりが必要です。
-
-「流行でつくり、古くなれば建て替える。」
-
-そんな家づくりではなく、何十年経っても愛され、家族とともに歳を重ねていく住まいをつくりたい。
-
-その想いからViehouseは生まれました。
-
-私たちは漆喰や無垢材など、本物の素材を大切にし、デザインだけでなく性能や健康にもこだわりながら、一棟一棟丁寧に家づくりをしています。
-
-家は建てた日が完成ではありません。
-
-10年後、20年後、30年後も「この家でよかった」と思っていただける住まいを、これからも皆さまと一緒につくっていきます。</p><b>代表取締役　福島 徹</b></div></section>
-
-<section className="container faq" id="faq">
-  <SectionTitle eyebrow="FAQ" title="よくあるご質問" />
-
-  <details>
-    <summary>まだ建てるか決めていなくても見学できますか？</summary>
-    <p>
-      はい、もちろん可能です。情報収集の段階でもお気軽にご来場ください。
-      実際の建物を見ながら、家づくりの進め方をご案内します。
-    </p>
-  </details>
-
-  <details>
-    <summary>子ども連れでも見学できますか？</summary>
-    <p>
-      はい、お子様連れでもご見学いただけます。
-      ご家族皆さまで、実際の暮らしをイメージしながらご覧ください。
-    </p>
-  </details>
-
-  <details>
-    <summary>土地を探している段階でも相談できますか？</summary>
-    <p>
-      はい、土地探しからご相談いただけます。
-      ご希望のエリアやご予算を伺い、建物とのバランスも含めてご提案します。
-    </p>
-  </details>
-
-  <details>
-    <summary>見学にはどのくらい時間がかかりますか？</summary>
-    <p>
-      目安は60分から90分程度です。
-      ご都合に合わせて、短時間でのご見学にも対応いたします。
-    </p>
-  </details>
-
-  <details>
-    <summary>予算や住宅ローンの相談だけでも大丈夫ですか？</summary>
-    <p>
-      はい、大丈夫です。
-      建築費の目安や月々の返済額、土地を含めた総予算についても分かりやすくご説明します。
-    </p>
-  </details>
-</section>
-
-  <section className="container reserve" id="reserve">
-    <Gift />
-    <ReserveForm selectedRequest={selectedRequest} />
-  </section>
-
-  <section className="bottom"><div className="container bottomInner"><h2>写真では伝わらない心地よさがあります。<br/>まずはモデルハウスでご体感ください。</h2><div><a className="goldBtn" href="#reserve" data-request="プロヴァンス見学">プロヴァンスを見学予約する</a><a className="blueBtn" href="#reserve" data-request="スマートハウス見学">スマートハウスを見学予約する</a></div><aside><p>お電話でのご予約・お問い合わせはこちら</p><strong><a href="tel:0485847779">048-584-7779</a></strong><span>受付時間 / 9:00〜19:00　定休日 / 不定期</span></aside></div></section>
-</main>
-
-      <div className="mobileReserve"><a href="tel:0485847779">電話で相談</a><a href="#reserve">見学を申し込む <ChevronRight size={17} /></a></div>
-      <footer>
-        <div className="container footer">
-          <a className="logo" href="/#top">Viehouse</a>
-          <nav>
-            <a href="/#top">モデルハウス</a>
-            <a href="/#youtube">YouTube</a>
-            <a href="/#voice">お客様の声</a>
-            <a href="/#model">家づくりのこだわり</a>
-            <a href="/company">会社案内</a>
-          </nav>
-          <a className="outline" href="/#reserve">来場予約はこちら</a>
+  return <div className="lp" onClickCapture={selectFromCta}>
+    <header className="lpHeader"><a className="lpLogo" href="#top">Viehouse<span>暮らしを、もっと自分らしく。</span></a><a className="lpHeaderCta" href="#reserve">見学予約 <ChevronRight size={15}/></a></header>
+    <main>
+      <section className="lpHero" id="top">
+        <img className="lpHeroImage" src={images.provenceHero} alt="Viehouse プロヴァンスのモデルハウス" fetchPriority="high"/>
+        <div className="lpHeroContent"><p className="lpKicker">埼玉のモデルハウス見学</p><h1>写真のつづきを、<br/>この家で。</h1><p className="lpHeroText">素材のぬくもりも、暮らしやすさも。<br/>あなたの「好き」を、見つけに。</p><a className="lpButton" href="#reserve">モデルハウスを見学する <ChevronRight size={18}/></a><a className="lpHeroLink" href="#model">2つの住まいを見る ↓</a></div>
+        <span className="lpHeroCaption">La Provence / 自然素材と暮らす家</span>
+      </section>
+      <div className="lpReassurance"><span>お子様連れOK</span><span>情報収集中でもOK</span><span>見学目安 60〜90分</span></div>
+      <section className="lpSection" id="model">
+        <div className="lpHeading"><p className="lpKicker">TWO WAYS TO LIVE</p><h2>どちらの暮らしに、<br className="lpMobileBreak"/>心が動く？</h2><p>異なる魅力を持つ、2つのモデルハウス。<br/>気になる1棟からでも、両方の見学でも。</p></div>
+        <div className="lpHomes">
+          <article className="lpHome"><div className="lpHomePhoto"><img src={images.provenceMain} alt="南仏風のプロヴァンスの住まい" loading="lazy"/><span>01 / LA PROVENCE</span></div><div className="lpHomeBody"><p className="lpKicker">プロヴァンス</p><h3>好きなものと、<br/>歳を重ねる家。</h3><p>漆喰のやわらかな表情。素足に心地よい無垢材。毎日触れる素材を、現地で確かめてください。</p><ul><li>漆喰・無垢材の質感</li><li>南仏風のデザイン</li><li>光の入り方と室内の雰囲気</li></ul><a className="lpHomeCta" href="#reserve" data-request="プロヴァンス見学">プロヴァンスを見学する <ChevronRight size={18}/></a></div></article>
+          <article className="lpHome lpHomeSmart"><div className="lpHomePhoto"><img src={images.smartMain} alt="シンプルモダンなスマートハウス" loading="lazy"/><span>02 / SMART HOUSE</span></div><div className="lpHomeBody"><p className="lpKicker">スマートハウス</p><h3>これからの暮らしを、<br/>かしこく、心地よく。</h3><p>太陽光で電気をつくり、蓄電池にためて使う。設備の仕組みも、暮らしの動線も、まとめて見学。</p><ul><li>太陽光・蓄電池の仕組み</li><li>シンプルモダンなデザイン</li><li>間取りと毎日の生活動線</li></ul><a className="lpHomeCta" href="#reserve" data-request="スマートハウス見学">スマートハウスを見学する <ChevronRight size={18}/></a></div></article>
         </div>
-      </footer>
-    </div>
-  );
+        <div className="lpBoth"><div><h3>迷ったら、両方見てみよう。</h3><p>自分たちに合う住まいを、一緒に探せます。</p></div><a className="lpButton" href="#reserve" data-request="２棟まとめて見学">2棟の見学を相談する <ChevronRight size={18}/></a></div>
+      </section>
+      <section className="lpExperience"><div className="lpExperiencePhoto"><img src={images.provenceHero} alt="実際に見学できるプロヴァンスのモデルハウス" loading="lazy"/></div><div className="lpExperienceBody"><p className="lpKicker">COME & FEEL</p><h2>「わが家なら」を、<br/>想像する時間。</h2><div className="lpPoint"><span>01</span><div><h3>触れてわかる、素材の心地よさ。</h3><p>写真では伝わりきらない、床や壁の質感を体感。</p></div></div><div className="lpPoint"><span>02</span><div><h3>歩いてわかる、暮らしの動線。</h3><p>部屋の広さやキッチンからの見え方をチェック。</p></div></div><div className="lpPoint"><span>03</span><div><h3>話してわかる、家づくりの進め方。</h3><p>土地や予算のことも、決まっていない段階から相談できます。</p></div></div></div></section>
+      <section className="lpSection lpVideos" id="youtube"><div className="lpHeading"><p className="lpKicker">BEFORE YOUR VISIT</p><h2>まずは動画で、家の中へ。</h2></div><div className="lpVideoGrid">{youtubeItems.slice(0,2).map(item=><a key={item[3]} className="lpVideo youtubeCard" href={item[3]} target="_blank" rel="noopener noreferrer"><div><img src={item[2]} alt={item[0]} loading="lazy"/><span>▶</span></div><h3>{item[0]} <ChevronRight size={16}/></h3><p>YouTubeでルームツアーを見る</p></a>)}</div></section>
+      <section className="lpGift" aria-labelledby="lp-gift-title"><div className="lpGiftCopy"><p className="lpKicker">WEB予約・初回来場限定</p><h2 id="lp-gift-title">見学の楽しみに、<br/>選べる来場特典。</h2><p className="lpGiftPrice">5,000<span>円相当</span></p><p>松阪牛 ／ towerカタログギフト ／<br className="lpMobileBreak"/> スターバックスチケット</p></div><div className="lpGiftImages">{[[images.giftBeef,'松阪牛'],[images.giftTower,'towerカタログギフト'],[images.giftStarbucks,'スターバックスチケット']].map(([src,label])=><div key={src}><img src={src} alt={label} loading="lazy"/></div>)}</div><p className="lpGiftNote">※ご来場特典は、Viehouseへ初めてご来場いただく方限定です。<br/>特典は任意です。未選択でもお申し込みいただけます。</p></section>
+      <section className="lpSection lpFaq" id="faq"><div className="lpHeading"><p className="lpKicker">QUESTIONS</p><h2>見学前の気になること。</h2></div>{[
+        ['まだ建てるか決めていなくても大丈夫？','はい。情報収集中の方もお気軽にご見学ください。土地探しや予算の相談からでも大丈夫です。'],
+        ['子どもと一緒に見学できますか？','お子様連れでもご見学いただけます。ご家族で暮らしをイメージしながらご覧ください。'],
+        ['どのくらい時間がかかりますか？','見学の目安は60〜90分です。短時間をご希望の場合は、お申し込み時にご相談ください。'],
+        ['見学場所や日時はどう決まりますか？','ご希望のモデルハウスと日時を伺い、担当者が調整します。見学場所の詳細は、その際にご案内します。'],
+      ].map(([q,a])=><details key={q}><summary>{q}<span>＋</span></summary><p>{a}</p></details>)}</section>
+      <section className="lpReservation" id="reserve"><div className="lpHeading"><p className="lpKicker">YOUR NEXT STEP</p><h2>まずは、見てみませんか。</h2><p>ご希望日時が未定でも大丈夫。<br/>担当者と相談しながら決められます。</p></div><ReserveForm selectedRequest={selectedRequest}/><p className="lpPhone">お電話でのご相談 <a href="tel:0485847779">048-584-7779</a><small>9:00〜19:00 ／ 定休日：不定期</small></p></section>
+    </main>
+    <footer className="lpFooter"><a className="lpLogo" href="#top">Viehouse</a><p>自分らしい暮らしを、いっしょに。</p><nav><a href="/company">会社案内</a><a href="https://www.youtube.com/@viehouse" target="_blank" rel="noopener noreferrer">YouTube</a><a href="#reserve">見学予約</a></nav><small>© Viehouse</small></footer>
+    <div className="lpSticky"><a href="tel:0485847779">電話で相談</a><a href="#reserve">見学を予約する <ChevronRight size={17}/></a></div>
+  </div>;
 }

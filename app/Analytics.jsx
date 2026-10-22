@@ -40,10 +40,10 @@ export default function Analytics() {
       if (href === '#reserve' || href === '/#reserve') {
         const section = link.closest('header') ? 'header'
           : link.closest('footer') ? 'footer'
-          : link.closest('.heroPanel') ? 'hero_model'
-          : link.closest('.hero') ? 'hero'
-          : link.closest('.doubleCta') ? 'model'
-          : link.closest('.bottom') ? 'bottom' : 'other';
+          : link.closest('.heroPanel, .lpHome') ? 'hero_model'
+          : link.closest('.hero, .lpHero') ? 'hero'
+          : link.closest('.doubleCta, .lpBoth') ? 'model'
+          : link.closest('.bottom, .lpSticky') ? 'bottom' : 'other';
         trackEvent('reservation_click', { cta_location: section });
       } else if (/^https:\/\/(youtu.be\/|www.youtube.com\/)/.test(href)) {
         trackEvent('youtube_click', {
