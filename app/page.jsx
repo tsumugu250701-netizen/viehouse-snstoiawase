@@ -158,7 +158,7 @@ function Header() {
 
 function HeroPanel({type,title,text,img,theme}){return <article className={`heroPanel ${theme}`}><img src={img} alt={title}/><div className="heroShade"/><div className="heroPanelText"><p>{type}</p><h2>{title}</h2><span>{text}</span><a href="#reserve" data-request={title === "プロヴァンス" ? "プロヴァンス見学" : "スマートハウス見学"}>この住まいを見学する <ChevronRight size={16}/></a></div></article>}
 function SectionTitle({eyebrow,title,text}){return <div className="sectionTitle"><p>{eyebrow}</p><h2>{title}</h2>{text&&<span>{text}</span>}</div>}
-function Gift(){return <section className="giftBlock"><div><p className="eyebrow">WEB予約限定</p><h2>5,000<span>円相当</span></h2><h3>選べる来場特典プレゼント！</h3><p>松阪牛・towerカタログギフト・スターバックスチケットからお選びいただけます。</p></div><div className="giftCards"><article><img src={images.giftBeef} alt="松阪牛の来場特典イメージ" loading="lazy"/><b>松阪牛</b></article><article><img src={images.giftTower} alt="towerカタログギフトのイメージ" loading="lazy"/><b>tower<br/>カタログギフト</b></article><article><img src={images.giftStarbucks} alt="スターバックスチケットのイメージ" loading="lazy"/><b>スターバックス<br/>チケット</b></article></div></section>}
+function Gift(){return <section className="giftBlock"><div><p className="eyebrow">WEB予約限定</p><h2>5,000<span>円相当</span></h2><h3>選べる来場特典プレゼント！</h3><p>松阪牛・towerカタログギフト・スターバックスチケットからお選びいただけます。</p><p className="formHint">※ご来場特典は、Viehouseへ初めてご来場いただく方限定です。</p></div><div className="giftCards"><article><img src={images.giftBeef} alt="松阪牛の来場特典イメージ" loading="lazy"/><b>松阪牛</b></article><article><img src={images.giftTower} alt="towerカタログギフトのイメージ" loading="lazy"/><b>tower<br/>カタログギフト</b></article><article><img src={images.giftStarbucks} alt="スターバックスチケットのイメージ" loading="lazy"/><b>スターバックス<br/>チケット</b></article></div></section>}
 
 const requestOptions = [
   'プロヴァンス見学', 'スマートハウス見学', '２棟まとめて見学',
@@ -174,7 +174,7 @@ function ReserveForm({ selectedRequest }) {
   const sending = useRef(false);
   const panel = useRef(null);
   const [data, setData] = useState({
-    name: '', furigana: '', email: '', phone: '', address: '',
+    name: '', furigana: '', email: '', phone: '', contactMethod: '', address: '',
     requestType: '', timing: '', statuses: [], area: '', landStatus: '',
     budget: '', gift: '', message: '', privacy: false, preferredDate: '',
     preferredTime: '',
@@ -242,6 +242,7 @@ function ReserveForm({ selectedRequest }) {
       'entry.286628918': data.furigana.trim(),
       'entry.1453514585': data.email.trim(),
       'entry.1236133254': data.phone.trim(),
+      'entry.1837995718': data.contactMethod,
       'entry.1025760241': data.address.trim(),
       'entry.1685769336': data.requestType,
       'entry.627008439': data.timing,
@@ -334,6 +335,11 @@ function ReserveForm({ selectedRequest }) {
               {input('furigana', 'ふりがな', 'text', '例）やまだ たろう', 'off')}
               {input('email', 'メールアドレス', 'email', '例）example@gmail.com', 'email')}
               {input('phone', '電話番号', 'tel', '例）090-1234-5678', 'tel')}
+              <label className="vhField vhSingle"><span>ご希望のご連絡手段</span>
+                <select name="contactMethod" value={data.contactMethod} onChange={e => setField('contactMethod', e.target.value)}>
+                  <option value="">選択してください</option><option>電話</option><option>メール</option>
+                </select>
+              </label>
               {input('address', '現在のお住まい（市区町村まで）', 'text', '例）埼玉県深谷市', 'address-level2')}
             </div>
           </section>
@@ -368,13 +374,20 @@ function ReserveForm({ selectedRequest }) {
                 <option value="">未選択</option>{['3,000万円〜4,000万円', '4,000万円〜5,000万円', '5,000万円以上', 'まだ決めていない'].map(value => <option key={value}>{value}</option>)}
               </select></label>
             </details>
-            {isVisit && <div className="vhQuestion"><h4>来場特典のご希望 <small>任意</small></h4><div className="vhChoices vhChoices3">
-              {['松阪牛', 'towerカタログギフト', 'スターバックスチケット'].map(value => choice('gift', value))}
-            </div></div>}
+            {isVisit && <div className="vhQuestion">
+              <label className="vhField"><span>ご来場特典（任意）</span>
+                <select name="gift" value={data.gift} onChange={e => setField('gift', e.target.value)} aria-describedby="gift-help gift-condition">
+                  <option value="">選択してください（任意）</option>
+                  {['松阪牛', 'towerカタログギフト', 'スターバックスチケット'].map(value => <option key={value}>{value}</option>)}
+                </select>
+              </label>
+              <p className="formHint" id="gift-help">未選択でもお申し込みいただけます。</p>
+              <p className="formHint" id="gift-condition">※ご来場特典は、Viehouseへ初めてご来場いただく方限定です。</p>
+            </div>}
             <label className="vhField vhSingle"><span>ご質問・ご相談 <small>任意</small></span><textarea value={data.message} onChange={e => setField('message', e.target.value)} placeholder="見学で確かめたいこと、日時のご相談など、お気軽にどうぞ。" rows={3} /></label>
             <div className="vhSummary">
               {[['ご希望', data.requestType], ['希望日時', isVisit ? [data.preferredDate, data.preferredTime].filter(Boolean).join(' ') || '未定・相談したい' : '資料請求'],
-                ['お名前', data.name], ['ふりがな', data.furigana], ['メール', data.email], ['電話番号', data.phone], ['お住まい', data.address]].map(([label, value]) => <div key={label}><span>{label}</span><strong>{value}</strong></div>)}
+                ['お名前', data.name], ['ふりがな', data.furigana], ['メール', data.email], ['電話番号', data.phone], ['ご希望のご連絡手段', data.contactMethod || '未選択'], ['ご来場特典', isVisit ? data.gift || '未選択' : '対象外（資料請求）'], ['お住まい', data.address]].map(([label, value]) => <div key={label}><span>{label}</span><strong>{value}</strong></div>)}
             </div>
             <p className="formHint">入力内容は、お問い合わせへの回答・見学の調整のために使用します。</p>
             <label className="vhPrivacy"><input type="checkbox" required checked={data.privacy} onChange={e => setField('privacy', e.target.checked)} /><span>上記の個人情報の取り扱いに同意します。</span></label>
@@ -423,6 +436,7 @@ export default function Page() {
   <span>見学を申し込む <ChevronRight size={18} /></span>
 </a>
 <p className="heroReassurance">お子様連れOK ／ 見学目安60〜90分<br />WEB予約限定・選べる5,000円相当の来場特典</p>
+<p className="formHint">※ご来場特典は、Viehouseへ初めてご来場いただく方限定です。</p>
 </div>
 
   <div className="heroGrid">
